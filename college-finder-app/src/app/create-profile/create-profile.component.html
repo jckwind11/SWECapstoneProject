@@ -1,0 +1,35 @@
+<div class="main-form">
+    <h1>Hey there {{this.username}}</h1>
+    <h4>Tell us about yourself</h4>
+    <form [formGroup]="form" (ngSubmit)="publishUserProfile()">
+        <mat-grid-list cols="1" rowHeight="75px">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Placeholder</mat-label>
+                    <input matInput placeholder="Placeholder" required>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Placeholder</mat-label>
+                    <input matInput placeholder="Placeholder" required>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Placeholder</mat-label>
+                    <input matInput placeholder="Placeholder" required>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Placeholder</mat-label>
+                    <input matInput placeholder="Placeholder" required>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button class="Sign-Up-Button" type="submit">Continue</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>

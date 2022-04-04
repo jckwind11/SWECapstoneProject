@@ -1,1 +1,41 @@
-<p>signup works!</p>
+<div class="main-form">
+    <h1>Sign Up</h1>
+    <h4>Create your free account today</h4>
+    <form [formGroup]="form" (ngSubmit)="createAccount()">
+        <mat-grid-list cols="1" rowHeight="75px">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="Your first name" required>
+                    <!-- <mat-error *ngIf="formValues['firstName'].required">You must enter a value</mat-error> -->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Your last name" required>
+                    <!-- <mat-error *ngIf="formValues['lastName'].required">You must enter a value</mat-error> -->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Your email address" required>
+                    <!-- <mat-error *ngIf="formValues.email.required">You must enter a value</mat-error> -->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput #password formControlName="password" type="password" required>
+                    <mat-hint align="start"><strong>Minimum 6 characters</strong> </mat-hint>
+                    <mat-hint align="end">{{password.value.length}} / 6</mat-hint>
+                    <!-- <mat-error *ngIf="formValues.password.required">You must enter a value</mat-error> -->
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button mat-raised-button class="Sign-Up-Button" type="submit">Sign Up</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
