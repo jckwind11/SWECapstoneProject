@@ -1,5 +1,8 @@
 .App {
     text-align: center;
+    /* background-color: #f2f2f2; */
+    min-width: 100%;
+    background-color: blue;
 }
 
 .material-icons.school {
@@ -19,7 +22,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #f2f2f2;
 }
 
 .Sign-Up-Button {
