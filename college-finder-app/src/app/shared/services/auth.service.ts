@@ -60,8 +60,8 @@ export class AuthService {
       });
   }
 
-   // Reset Forggot password
-   public forgotPassword (passwordResetEmail: string) {
+   // Reset password
+   public resetPassword (passwordResetEmail: string) {
     return this.auth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {

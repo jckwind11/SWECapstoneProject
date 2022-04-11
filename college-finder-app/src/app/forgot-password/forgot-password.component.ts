@@ -26,7 +26,7 @@ export class ForgotPasswordComponent implements OnInit {
       return;
     }
 
-    this.authService.forgotPassword(this.form.controls.email.value);
+    this.authService.resetPassword(this.form.controls.email.value);
   }
 
 }
