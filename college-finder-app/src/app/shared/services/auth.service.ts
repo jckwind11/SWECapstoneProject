@@ -38,6 +38,8 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.setUserData(result.user, firstName + '.' + lastName);
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(this.userData));
         this.sendVerificationMail();
       })
       .catch((error) => {
@@ -45,7 +47,6 @@ export class AuthService {
       });
   }
 
-  // Sign in with email/password
   public signIn(email: string, password: string) {
     return this.auth
       .signInWithEmailAndPassword(email, password)
@@ -54,13 +55,21 @@ export class AuthService {
           this.router.navigate(['home']);
         });
         this.setUserData(result.user, result.user?.displayName || '');
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(this.userData));
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
 
-   // Reset password
+  public signOut() {
+    return this.auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['login']);
+    });
+  }
+
    public resetPassword (passwordResetEmail: string) {
     return this.auth
       .sendPasswordResetEmail(passwordResetEmail)
@@ -86,6 +95,11 @@ export class AuthService {
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  public get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null && user.emailVerified !== false ? true : false;
   }
 
   private sendVerificationMail() {

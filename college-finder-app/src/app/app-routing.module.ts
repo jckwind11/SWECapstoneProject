@@ -6,12 +6,13 @@ import { SignupComponent } from './signup/signup.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   { path: '', component: SplashComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
-  { path: 'create-profile', component: CreateProfileComponent },
+  { path: 'create-profile', component: CreateProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
   { path: 'reset-password', component: ForgotPasswordComponent}
 
