@@ -60,6 +60,19 @@ export class AuthService {
       });
   }
 
+   // Reset Forggot password
+   public forgotPassword (passwordResetEmail: string) {
+    return this.auth
+      .sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        this.router.navigate(['login']);
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
+
   private setUserData(user: any, username: string) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user.uid}`);
     this.username = username;
