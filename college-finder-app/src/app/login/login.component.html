@@ -1,0 +1,24 @@
+<div class="main-form">
+  <h1>Login</h1>
+  <form [formGroup]="form" (ngSubmit)="loginAccount()">
+    <mat-grid-list cols="1" rowHeight="75px">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Your email address" required>
+          <!-- <mat-error *ngIf="formValues.email.required">You must enter a value</mat-error> -->
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput #password formControlName="password" type="password" required>
+          <!-- <mat-error *ngIf="formValues.password.required">You must enter a value</mat-error> -->
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <button mat-raised-button class="login-button" type="submit">Login</button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>

@@ -1,0 +1,7 @@
+.main-form {
+  text-align: center;
+  background-color: #f2f2f2;
+  /* min-width: 100%; */
+  min-height: 100vh;
+  padding-top: 5%;
+}

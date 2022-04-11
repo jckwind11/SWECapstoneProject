@@ -18,6 +18,7 @@ import {MaterialModule} from './material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SplashComponent,
     HomeComponent,
     SignupComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

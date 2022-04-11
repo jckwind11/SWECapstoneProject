@@ -45,6 +45,21 @@ export class AuthService {
       });
   }
 
+  // Sign in with email/password
+  public signIn(email: string, password: string) {
+    return this.auth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['home']);
+        });
+        this.setUserData(result.user, result.user?.displayName || '');
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
+
   private setUserData(user: any, username: string) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user.uid}`);
     this.username = username;
