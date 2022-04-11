@@ -7,15 +7,17 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuard } from './shared/guard/auth.guard';
+import { RedirectIfAuthenticatedGuard } from './shared/guard/redirect-if-authenticated.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: SplashComponent },
+  { path: '', component: SplashComponent, canActivate: [RedirectIfAuthenticatedGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: SignupComponent, canActivate: [RedirectIfAuthenticatedGuard] },
   { path: 'create-profile', component: CreateProfileComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent},
-  { path: 'reset-password', component: ForgotPasswordComponent}
-
+  { path: 'login', component: LoginComponent, canActivate: [RedirectIfAuthenticatedGuard]},
+  { path: 'reset-password', component: ForgotPasswordComponent, canActivate: [RedirectIfAuthenticatedGuard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

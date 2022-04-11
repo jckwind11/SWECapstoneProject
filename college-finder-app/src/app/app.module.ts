@@ -20,6 +20,7 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     SignupComponent,
     CreateProfileComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
