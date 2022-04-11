@@ -40,7 +40,7 @@ export class AuthService {
         up and returns promise */
         this.createUserData(result.user, firstName, lastName);
         localStorage.removeItem('user');
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(result.user));
         this.sendVerificationMail();
       })
       .catch((error) => {
@@ -55,9 +55,9 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['home']);
         });
-        this.getUserData(result.user);
         localStorage.removeItem('user');
-        localStorage.setItem('user', JSON.stringify(result.user?.uid));
+        localStorage.setItem('user', JSON.stringify(result.user));
+        this.getUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -96,6 +96,8 @@ export class AuthService {
       birthday: '',
       hometown: ''
     };
+    localStorage.setItem('userData', JSON.stringify(this.userData));
+
     return userRef.set(userData, {
       merge: true,
     });
@@ -106,7 +108,6 @@ export class AuthService {
     userDoc.valueChanges().subscribe( data => {
       this.userData = data;
       localStorage.setItem('userData', JSON.stringify(this.userData));
-      localStorage.setItem('user.username', this.userData.username);
       localStorage.setItem('user.uid', this.userData.uid);
     })
   }
