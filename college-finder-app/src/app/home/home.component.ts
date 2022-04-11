@@ -9,7 +9,11 @@ import { User } from '../shared/services/user';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  userData: any;
+
+  constructor(public authService: AuthService) { 
+    this.userData = JSON.parse(localStorage.getItem('userData') || '');
+  }
 
   ngOnInit(): void {
   }

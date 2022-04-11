@@ -4,6 +4,7 @@ import * as auth from 'firebase/auth';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.setUserData(result.user, firstName + '.' + lastName);
+        this.createUserData(result.user, firstName, lastName);
         localStorage.removeItem('user');
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.sendVerificationMail();
@@ -54,9 +55,9 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['home']);
         });
-        this.setUserData(result.user, result.user?.displayName || '');
+        this.getUserData(result.user);
         localStorage.removeItem('user');
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(result.user?.uid));
       })
       .catch((error) => {
         window.alert(error.message);
@@ -82,19 +83,32 @@ export class AuthService {
       });
   }
 
-  private setUserData(user: any, username: string) {
+  private createUserData(user: any, firstName: string, lastName: string) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user.uid}`);
-    this.username = username;
     const userData: User = {
       uid: user.uid,
+      firstName: firstName,
+      lastName: lastName,
       email: user.email,
-      displayName: username,
-      photoURL: user.photoURL,
+      username: firstName + '.' + lastName,
+      profilePictureURL: '',
       emailVerified: user.emailVerified,
+      birthday: '',
+      hometown: ''
     };
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  private getUserData(user: any) {
+    const userDoc: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);
+    userDoc.valueChanges().subscribe( data => {
+      this.userData = data;
+      localStorage.setItem('userData', JSON.stringify(this.userData));
+      localStorage.setItem('user.username', this.userData.username);
+      localStorage.setItem('user.uid', this.userData.uid);
+    })
   }
 
   public get isLoggedIn(): boolean {
