@@ -1,35 +1,42 @@
-<h3>Profile</h3>
+<div class="container">
+  <h3>Profile</h3>
 
-<button routerLink="/home">Home</button>
+  <button routerLink="/home" type="button" class="btn btn-primary">Home</button>
 
-<hr>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <form action="">
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name: </label>
+          <input type="text" class="form-control" id="firstName" name="lastName" value="{{userData.firstName}}">
+        </div>
 
-<form action="">
-  <label for="firstName">First Name: </label>
-  <input type="text" id="firstName" name="lastName" value="{{userData.firstName}}">
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name: </label>
+          <input type="text" class="form-control" id="lastName" name="lastName" value="{{userData.lastName}}">
+        </div>
 
-  <br>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email: </label>
+          <input type="text" class="form-control" id="email" name="email" value="{{userData.email}}">
+        </div>
 
-  <label for="lastName">Last Name: </label>
-  <input type="text" id="lastName" name="lastName" value="{{userData.lastName}}">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username: </label>
+          <input type="text" class="form-control" id="username" name="username" value="{{userData.username}}">
+        </div>
 
-  <br>
+        <div class="mb-3">
+          <label for="birthday" class="form-label">Birthday: </label>
+          <input type="text" class="form-control" id="birthday" name="birthday" value="{{userData.birthday}}">
+        </div>
 
-  <label for="email">Email: </label>
-  <input type="text" id="email" name="email" value="{{userData.email}}">
-
-  <br>
-
-  <label for="username">Username: </label>
-  <input type="text" id="username" name="username" value="{{userData.username}}">
-
-  <br>
-
-  <label for="birthday">Birthday: </label>
-  <input type="text" id="birthday" name="birthday" value="{{userData.birthday}}">
-
-  <br>
-
-  <label for="homwtown">Hometown: </label>
-  <input type="text" id="homwtown" name="homwtown" value="{{userData.homwtown}}">
-</form>
+        <div class="mb-3">
+          <label for="homwtown" class="form-label">Hometown: </label>
+          <input type="text" class="form-control" id="homwtown" name="homwtown" value="{{userData.homwtown}}">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
