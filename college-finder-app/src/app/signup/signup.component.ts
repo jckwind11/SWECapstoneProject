@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
 
   createAccount() {
     if (this.form.invalid) {
-      window.alert("The information you provided is invalid");
+      this.form.markAllAsTouched();
       return;
     }
 

@@ -21,9 +21,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get f(){
+    return this.form.controls;
+  }
+
+
   loginAccount() {
     if (this.form.invalid) {
-      window.alert("The information you provided is invalid");
+      this.form.markAllAsTouched();
       return;
     }
 
