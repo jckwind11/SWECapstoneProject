@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SplashComponent } from './splash/splash.component';
-import { HomeComponent } from './home/home.component';
-import { SignupComponent } from './signup/signup.component';
+import { SplashComponent } from './components/splash/splash.component';
+import { HomeComponent } from './components/home/home.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -16,11 +16,11 @@ import { AuthService } from "./shared/services/auth.service";
 
 import {MaterialModule} from './material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 

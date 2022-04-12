@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { AuthService } from '../shared/services/auth.service';
-import { User } from '../shared/services/user';
+import { AuthService } from '../../shared/services/auth.service';
+import { User } from '../../shared/services/user';
 
 @Component({
   selector: 'app-profile',
