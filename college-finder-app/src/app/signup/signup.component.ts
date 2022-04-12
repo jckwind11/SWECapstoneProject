@@ -18,7 +18,10 @@ export class SignupComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    }, {
+      validator: ConfirmedValidator('password', 'confirmPassword')
     })
   }
 
@@ -27,11 +30,17 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get f(){
+    return this.form.controls;
+  }
+
   createAccount() {
     if (this.form.invalid) {
       window.alert("The information you provided is invalid");
       return;
     }
+
+
     this.authService.signUp(
       this.form.controls.firstName.value, 
       this.form.controls.lastName.value, 
@@ -39,4 +48,19 @@ export class SignupComponent implements OnInit {
       this.form.controls.password.value);
   }
 
+}
+
+function ConfirmedValidator(controlName: string, matchingControlName: string){
+  return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+          return;
+      }
+      if (control.value !== matchingControl.value) {
+          matchingControl.setErrors({ confirmedValidator: true });
+      } else {
+          matchingControl.setErrors(null);
+      }
+  }
 }
