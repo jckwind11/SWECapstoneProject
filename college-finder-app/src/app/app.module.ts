@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ProfileComponent } from './profile/profile.component';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
