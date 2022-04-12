@@ -14,7 +14,6 @@ export class ProfileComponent implements OnInit {
   private userDoc: AngularFirestoreDocument<any>;
   userData: any;
   constructor(private afs: AngularFirestore, authService: AuthService) { 
-    console.log(localStorage.getItem('userData'));
     this.userDoc = afs.doc<any>('users/' + localStorage.getItem('user.uid'));
     this.userDoc.valueChanges().subscribe( data => {
       this.userData = data;
