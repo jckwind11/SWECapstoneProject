@@ -6,35 +6,48 @@
   <hr>
   <div class="row">
     <div class="col-md-6">
-      <form action="">
+
+      <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
+        Profile Updated!
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="updateAccount()">
         <div class="mb-3">
           <label for="firstName" class="form-label">First Name: </label>
-          <input type="text" class="form-control" id="firstName" name="lastName" value="{{userData.firstName}}">
+          <input type="text" class="form-control" id="firstName" name="lastName" value="{{userData.firstName}}"
+            disabled>
         </div>
 
         <div class="mb-3">
           <label for="lastName" class="form-label">Last Name: </label>
-          <input type="text" class="form-control" id="lastName" name="lastName" value="{{userData.lastName}}">
+          <input type="text" class="form-control" id="lastName" name="lastName" value="{{userData.lastName}}" disabled>
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email: </label>
-          <input type="text" class="form-control" id="email" name="email" value="{{userData.email}}">
+          <input type="text" class="form-control" id="email" name="email" value="{{userData.email}}" disabled>
         </div>
 
         <div class="mb-3">
           <label for="username" class="form-label">Username: </label>
-          <input type="text" class="form-control" id="username" name="username" value="{{userData.username}}">
+          <input type="text" class="form-control" id="username" formControlName="username"
+            value="{{userData.username}}">
         </div>
 
         <div class="mb-3">
-          <label for="birthday" class="form-label">Birthday: </label>
-          <input type="date" class="form-control" id="birthday" name="birthday" value="{{userData.birthday}}">
+          <label for="birthday" class="form-label">Birthday (Optional): </label>
+          <input type="date" class="form-control" id="birthday" formControlName="birthday"
+            value="{{userData.birthday}}">
         </div>
 
         <div class="mb-3">
-          <label for="homwtown" class="form-label">Hometown: </label>
-          <input type="text" class="form-control" id="homwtown" name="homwtown" value="{{userData.homwtown}}">
+          <label for="hometown" class="form-label">Hometown (Optional): </label>
+          <input type="text" class="form-control" id="hometown" formControlName="hometown"
+            value="{{userData.hometown}}">
+        </div>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </form>
     </div>

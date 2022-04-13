@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.signIn(this.form.controls.email.value,
-      this.form.controls.password.value);
+    this.authService.signIn(this.f.email.value,
+      this.f.password.value);
   }
 
 }

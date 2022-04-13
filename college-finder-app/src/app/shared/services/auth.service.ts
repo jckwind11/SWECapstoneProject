@@ -92,7 +92,6 @@ export class AuthService {
       email: user.email,
       username: firstName + '.' + lastName,
       profilePictureURL: '',
-      emailVerified: user.emailVerified,
       birthday: '',
       hometown: ''
     };

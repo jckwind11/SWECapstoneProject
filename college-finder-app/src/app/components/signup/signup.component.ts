@@ -40,7 +40,6 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-
     this.authService.signUp(
       this.form.controls.firstName.value, 
       this.form.controls.lastName.value, 
