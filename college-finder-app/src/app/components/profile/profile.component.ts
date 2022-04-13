@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   // Get local saved data before retrieving data from the db
   userData: any = JSON.parse(localStorage.getItem('userData') || '');
 
-  constructor(private afs: AngularFirestore, authService: AuthService, private formBuilder: FormBuilder) { 
+  constructor(private afs: AngularFirestore, public authService: AuthService, private formBuilder: FormBuilder) { 
     this.userDoc = afs.doc<any>('users/' + localStorage.getItem('user.uid'));
     this.userDoc.valueChanges().subscribe( data => {
       this.userData = data;

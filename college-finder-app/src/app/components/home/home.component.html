@@ -2,7 +2,9 @@
 <div class="header">
     <a class="active" routerLink="/home">Home</a>
     <a routerLink="/profile">Profile</a>
-    <a (click)="authService.signOut()">Sign Out</a>
+    <div class="right-button">
+        <a (click)="authService.signOut()">Sign Out</a>
+    </div>
 </div>
 <div class="content">
     <p class="title">Welcome, {{ userData.firstName }} {{ userData.lastName }} </p>

@@ -1,6 +1,9 @@
 <div class="header">
   <a routerLink="/home">Home</a>
   <a class="active" routerLink="/profile">Profile</a>
+  <div class="right-button">
+    <a (click)="authService.signOut()">Sign Out</a>
+</div>
 </div>
 
 <div class="container">
