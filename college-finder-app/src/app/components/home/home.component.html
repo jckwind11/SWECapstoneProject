@@ -1,3 +1,11 @@
-<p>Welcome, {{ userData.firstName }} {{ userData.lastName }} </p>
-<button mat-raised-button (click)="authService.signOut()">Sign Out</button>
-<button mat-raised-button routerLink="/profile">Profile</button>
+<body>
+<div class="header">
+    <a class="active" routerLink="/home">Home</a>
+    <a routerLink="/profile">Profile</a>
+    <a (click)="authService.signOut()">Sign Out</a>
+</div>
+<div class="content">
+    <p class="title">Welcome, {{ userData.firstName }} {{ userData.lastName }} </p>
+</div>
+
+</body>
