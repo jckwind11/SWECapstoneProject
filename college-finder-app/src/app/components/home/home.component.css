@@ -36,29 +36,9 @@ body {
   float: right;
 }
  
-/**
 .title {
-  grid-area: welcome;
-  font-size: 24px;
-  padding-left: 10px;
+  padding-left: 8px;
+  padding-top: 8px;
+  font-size: x-large;
+  font-weight: bold;
 }
-
-.buttons {
-  grid-template-areas: buttons;
-  float: right;
-  position: absolute;
-  padding-left: 85%;
-}
-
-.content {
-  grid-template-areas: main;
-}
-
-.header {
-  display: flex;
-  padding-top: 10px;
-  grid-template-columns: auto auto;
-} 
-
-
-*/
