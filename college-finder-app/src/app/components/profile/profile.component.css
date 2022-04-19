@@ -50,4 +50,18 @@ body {
             value="{{userData.hometown}}">
         </div>
         
-*/
+
+
+<div class="mb-3">
+          <label for="birthday" class="form-label">Birthday (Optional): </label>
+          <input type="date" class="form-control" id="birthday" formControlName="birthday"
+            value="{{userData.birthday}}">
+        </div>
+
+        <div class="mb-3">
+          <label for="hometown" class="form-label">Hometown (Optional): </label>
+          <input type="text" class="form-control" id="hometown" formControlName="hometown"
+            value="{{userData.hometown}}">
+        </div>
+
+        */
