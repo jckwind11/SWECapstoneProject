@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SurveyComponent } from './components/survey/survey.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreateProfileComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,

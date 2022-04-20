@@ -1,0 +1,44 @@
+<body>
+<div class="header">
+    <a routerLink="/home">Home</a>
+    <a class="active" routerLink="/profile">Profile</a>
+    <div class="right-button">
+      <a (click)="authService.signOut()">Sign Out</a>
+  </div>
+</div>
+
+<h1 class="title">Survery</h1>
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-6">
+
+        <form [formGroup]="form" (ngSubmit)="updateSurvey()">
+
+            <div class="mb-3">
+                <label for="collegeSize" class="form-label">College Size: </label><br>
+                <input type="checkbox" name="college-size" value="Small">Small<br>
+                <input type="checkbox" name="college-size" value="Medium">Medium<br>
+                <input type="checkbox" name="college-size" value="Large">Large<br>
+            </div>
+
+            <div class="mb-3">
+                <label for="collegeLocation" class="form-label">College Location: </label><br>
+                <input type="checkbox" name="college-loc" value="NorthEast">NorthEast<br>
+                <input type="checkbox" name="college-loc" value="MidAtlantic">Mid-Atlantic<br>
+                <input type="checkbox" name="college-loc" value="South">South<br>
+                <input type="checkbox" name="college-loc" value="MidWest">MidWest<br>
+                <input type="checkbox" name="college-loc" value="SunBelt">SunBelt<br>
+                <input type="checkbox" name="college-loc" value="WestCoast">West Coast<br>
+            </div>
+
+            <div class="mb-3">
+
+            </div>
+
+        </form>
+
+    </div>
+    </div>
+</div>
+</body>

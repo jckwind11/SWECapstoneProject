@@ -15,6 +15,10 @@
         Profile Updated!
       </div>
 
+      <div class="survey">
+        <button type="submit" class="btn btn-primary" routerLink="/survey">My Survey</button>
+      </div>
+
       <form [formGroup]="form" (ngSubmit)="updateAccount()">
         <div class="mb-3">
           <label for="firstName" class="form-label">First Name: </label>

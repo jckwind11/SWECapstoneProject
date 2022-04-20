@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/services/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,12 @@ export class ProfileComponent implements OnInit {
   // Get local saved data before retrieving data from the db
   userData: any = JSON.parse(localStorage.getItem('userData') || '');
 
-  constructor(private afs: AngularFirestore, public authService: AuthService, private formBuilder: FormBuilder) { 
+  constructor(
+    private afs: AngularFirestore, 
+    public authService: AuthService, 
+    private formBuilder: FormBuilder, 
+    private router: Router,
+    ) { 
     this.userDoc = afs.doc<any>('users/' + localStorage.getItem('user.uid'));
     this.userDoc.valueChanges().subscribe( data => {
       this.userData = data;
