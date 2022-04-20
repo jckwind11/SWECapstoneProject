@@ -21,7 +21,6 @@ export class AppComponent {
   }
 
   get isUser() {
-
     return this.currentUser;
   }
 }
