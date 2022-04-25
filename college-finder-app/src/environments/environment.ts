@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  collegeAPIkey: "yAZ3JaZzDbjzTLPrdXmazvRcHrHqYDXbbdRFbvka",
   firebase: {
     apiKey: "AIzaSyBrbR_HSeIvnMq9W23skXbL1RV7VuQYddY",
     authDomain: "college-finder-app-swe.firebaseapp.com",
@@ -11,8 +12,6 @@ export const environment = {
     storageBucket: "college-finder-app-swe.appspot.com",
     messagingSenderId: "983292634969",
     appId: "1:983292634969:web:e4350eac117bda53dcce48"
-    // databaseURL: "xxxxxxxxxxxxxxxxxxxxxxxx",
-    // measurementId: "xxxxxxxxxxxxxxxx"
   }
 };
 
