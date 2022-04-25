@@ -12,10 +12,11 @@ export class HomeComponent implements OnInit {
   userData: any;
 
   constructor(public authService: AuthService) { 
-    this.userData = JSON.parse(localStorage.getItem('userData') || '');
+    
   }
 
   ngOnInit(): void {
+    this.userData = JSON.parse(localStorage.getItem('userData') || '');
   }
 
 }

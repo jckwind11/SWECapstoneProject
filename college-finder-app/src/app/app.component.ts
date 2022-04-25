@@ -11,16 +11,22 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'College Finder';
+
   currentUser: User;
 
 
-  constructor(  private router: Router,
-                private authService: AuthService,
+  constructor(
+    private router: Router,
+    private authService: AuthService,
   ) {
-    this.currentUser =  this.authService.userData;
+    this.currentUser = this.authService.userData;
   }
 
   get isUser() {
     return this.currentUser;
+  }
+
+  logout() {
+    this.authService.signOut()
   }
 }

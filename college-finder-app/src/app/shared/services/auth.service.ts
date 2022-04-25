@@ -24,11 +24,12 @@ export class AuthService {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
+        // JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
+        // JSON.parse(localStorage.getItem('user')!);
       }
+      // console.log(this.userData);
     });
   }
 
@@ -44,6 +45,7 @@ export class AuthService {
         this.sendVerificationMail();
       })
       .catch((error) => {
+        console.log(error);
         window.alert(error.message);
       });
   }
@@ -120,7 +122,7 @@ export class AuthService {
     return this.auth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['create-profile']);
+        this.router.navigate(['home']);
       });
   }
 }
