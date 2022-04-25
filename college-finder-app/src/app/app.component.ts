@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from './shared/services/user';
+import { User } from './shared/models/user';
 import { AuthService } from "./shared/services/auth.service";
 import { Router } from '@angular/router';
 
@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'College Finder';
-
   currentUser: User;
 
 
@@ -19,7 +18,9 @@ export class AppComponent {
     private router: Router,
     private authService: AuthService,
   ) {
-    this.currentUser = this.authService.userData;
+    this.authService.currentUser.subscribe(x => {
+      this.currentUser = x;
+    });
   }
 
   get isUser() {

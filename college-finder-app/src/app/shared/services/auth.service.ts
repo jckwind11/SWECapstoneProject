@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
+import { User } from '../models/user';
+import { UserData } from '../models/userData';
 import * as auth from 'firebase/auth';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs';
+import { BehaviorSubject, Observable, first } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,114 +16,94 @@ export class AuthService {
 
   username: string = '';
 
-  constructor ( 
-    private firestore: AngularFirestore, 
-    private auth: AngularFireAuth, 
-    private router: Router, 
+  private currentUserSubject: BehaviorSubject<User>;
+
+  public currentUser: Observable<User>;
+
+  constructor(
+    private firestore: AngularFirestore,
+    private auth: AngularFireAuth,
+    private router: Router,
     private ngZone: NgZone) {
-    this.auth.authState.subscribe((user: any) => {
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        // JSON.parse(localStorage.getItem('user')!);
-      } else {
-        localStorage.setItem('user', 'null');
-        // JSON.parse(localStorage.getItem('user')!);
-      }
-      // console.log(this.userData);
-    });
+
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public signUp(firstName: string, lastName: string, email: string, password: string) {
-    return this.auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
-        this.createUserData(result.user, firstName, lastName);
-        localStorage.removeItem('user');
-        localStorage.setItem('user', JSON.stringify(result.user));
-        this.sendVerificationMail();
-      })
-      .catch((error) => {
-        console.log(error);
-        window.alert(error.message);
-      });
+  public async signUp(firstName: string, lastName: string, email: string, password: string) {
+    const result = await this.auth.createUserWithEmailAndPassword(email, password);
+    await this.sendVerificationMail();
+    localStorage.removeItem('user');
+    await this.createUserData(result.user, firstName, lastName);
   }
 
-  public signIn(email: string, password: string) {
-    return this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['home']);
-        });
-        localStorage.removeItem('user');
-        localStorage.setItem('user', JSON.stringify(result.user));
-        this.getUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  public async signIn(email: string, password: string) {
+    const result = await this.auth.signInWithEmailAndPassword(email, password);
+    localStorage.removeItem('user');
+    await this.getUserData(result.user);
+    this.router.navigate(['home']);
   }
 
-  public signOut() {
-    return this.auth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['login']);
-    });
+  public async signOut() {
+    await this.auth.signOut();
+    localStorage.removeItem('user');
+    this.currentUserSubject.next(null);
+    this.router.navigate(['']);
   }
 
-   public resetPassword (passwordResetEmail: string) {
-    return this.auth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        this.router.navigate(['login']);
-        window.alert('Password reset email sent, check your inbox.');
-      })
-      .catch((error) => {
-        window.alert(error);
-      });
+  public async resetPassword(passwordResetEmail: string) {
+    await this.auth.sendPasswordResetEmail(passwordResetEmail);
+    this.router.navigate(['login']);
   }
 
-  private createUserData(user: any, firstName: string, lastName: string) {
-    const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${user.uid}`);
-    const userData: User = {
-      uid: user.uid,
+  private async createUserData(newUser: auth.User, firstName: string, lastName: string) {
+    const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${newUser.uid}`);
+    const userData: UserData = {
+      uid: newUser.uid,
       firstName: firstName,
       lastName: lastName,
-      email: user.email,
+      email: newUser.email,
       username: firstName + '.' + lastName,
       profilePictureURL: '',
       birthday: '',
       hometown: ''
     };
-    localStorage.setItem('userData', JSON.stringify(this.userData));
-
-    return userRef.set(userData, {
-      merge: true,
-    });
+    const user: User = {
+      uid: newUser.uid,
+      displayName: newUser.displayName,
+      email: newUser.email,
+      emailVerified: newUser.emailVerified,
+      photoURL: newUser.photoURL,
+      data: userData
+    }
+    await userRef.set(userData, { merge: true });
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+    this.router.navigate(['home']);
   }
 
-  private getUserData(user: any) {
-    const userDoc: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);
-    userDoc.valueChanges().subscribe( data => {
-      this.userData = data;
-      localStorage.setItem('userData', JSON.stringify(this.userData));
-      localStorage.setItem('user.uid', this.userData.uid);
-    })
+  private async getUserData(thisUser: auth.User) {
+    const userDoc: AngularFirestoreDocument<UserData> = this.firestore.doc<UserData>(`users/${thisUser.uid}`);
+    const document = await userDoc.get().pipe(first()).toPromise();
+    const user: User = {
+        uid: thisUser.uid,
+        displayName: thisUser.displayName,
+        email: thisUser.email,
+        emailVerified: thisUser.emailVerified,
+        photoURL: thisUser.photoURL,
+        data: document.data()
+    }
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 
-  public get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+  private async sendVerificationMail() {
+    const newUser = await this.auth.currentUser;
+    await newUser.sendEmailVerification();
   }
 
-  private sendVerificationMail() {
-    return this.auth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['home']);
-      });
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 }
