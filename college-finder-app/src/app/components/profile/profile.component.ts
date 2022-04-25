@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
-import { User } from '../../shared/models/user';
+import { User } from '../../shared/models/user/user';
 import {Router} from '@angular/router';
 
 @Component({
