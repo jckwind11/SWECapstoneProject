@@ -2,42 +2,6 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
   }
-  
-  .title {
-    padding-left: 25px;
-    padding-top: 25px;
-    font-size: xx-large;
-    font-weight: bold;
-    text-decoration: underline;
-  }
-
-  .header {
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  .header a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .header a.active {
-    background-color: #2b6777;
-    color: white;
-  }
-  
-  .header a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .right-button {
-    float: right;
-  }
 
   .container {
     padding-top: 25px;

@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    public authService: AuthService,
   ) {
     this.authService.currentUser.subscribe(x => {
       this.currentUser = x;
@@ -31,3 +31,12 @@ export class AppComponent {
     this.authService.signOut()
   }
 }
+
+/**
+ * <mat-toolbar *ngIf="isUser">
+    <button mat-button routerLink="/home">Home</button>
+    <button mat-button routerLink="/profile">Profile</button>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="logout">Sign Out</button>
+</mat-toolbar>
+ */
