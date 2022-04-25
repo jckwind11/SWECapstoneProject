@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
 
 import { AuthService } from "./shared/services/auth.service";
 
-import {MaterialModule} from './material-module';
+import { MaterialModule } from './material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyComponent } from './components/survey/survey.component';
+import { CollegeRowComponent } from './components/college-row/college-row.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { SurveyComponent } from './components/survey/survey.component';
     LoginComponent,
     ForgotPasswordComponent,
     ProfileComponent,
-    SurveyComponent
+    SurveyComponent,
+    CollegeRowComponent
   ],
   imports: [
     BrowserModule,
