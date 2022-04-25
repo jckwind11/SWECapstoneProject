@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-// import { User } from '../../shared/services/user';
+import { SearchService } from '../../shared/services/search.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +9,30 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  userData: any;
+  school_size = 50;
 
-  constructor(public authService: AuthService) { 
+  constructor(
+    public authService: AuthService, 
+    public searchService: SearchService) { 
     
   }
 
   ngOnInit(): void {
-    this.userData = JSON.parse(localStorage.getItem('userData') || '');
+  }
+
+  formatLabel(value: number) {
+    return value + 'k';
+  }
+
+  search() {
+    this.searchService.getBasedOnSize(this.school_size).subscribe(
+      schools => {
+        console.log(schools);
+      },
+      error => {
+        console.log(error);
+        // this.notifService.showNotif(error.toString(), 'warning');
+      });
   }
 
 }

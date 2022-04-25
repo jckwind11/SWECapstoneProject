@@ -1,17 +1,16 @@
 <mat-toolbar class="header" *ngIf="isUser">
+    <button mat-button routerLink="/home">Home</button>
+    <button mat-button routerLink="/profile">Profile</button>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="logout">Sign Out</button>
+</mat-toolbar>
+
+<!-- <mat-toolbar class="header" *ngIf="isUser">
     <a routerLink="/home">Home</a>
     <a routerLink="/profile">Profile</a>
     <span class="example-spacer"></span>
     <a (click)="logout">Sign Out</a>
-</mat-toolbar>
-
-<!-- <div class="header">
-    <a class="active" routerLink="/home">Home</a>
-    <a routerLink="/profile">Profile</a>
-    <div class="right-button">
-        <a (click)="authService.signOut()">Sign Out</a>
-    </div>
-</div> -->
+</mat-toolbar> -->
 
 <router-outlet>
 </router-outlet>

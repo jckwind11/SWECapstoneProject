@@ -29,14 +29,11 @@ export class AppComponent {
 
   logout() {
     this.authService.signOut()
+    .then(() => {
+      console.log('logged out');
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
 }
-
-/**
- * <mat-toolbar *ngIf="isUser">
-    <button mat-button routerLink="/home">Home</button>
-    <button mat-button routerLink="/profile">Profile</button>
-    <span class="example-spacer"></span>
-    <button mat-button (click)="logout">Sign Out</button>
-</mat-toolbar>
- */

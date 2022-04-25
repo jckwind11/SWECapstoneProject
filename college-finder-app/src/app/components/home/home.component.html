@@ -1,7 +1,9 @@
-<body>
-
-    <div class="content">
-        <p class="title">Welcome, {{ userData.firstName }} {{ userData.lastName }} </p>
+<mat-card class="settings-card">
+    <div class="student-body-size-area">
+        <p>Average Campus Size: {{school_size}}k</p>
+        <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="1" value="50" [(ngModel)]="school_size"></mat-slider>
     </div>
+    <button mat-raised-button class="Search-Button" (click)="search()">Search</button>
+</mat-card>
 
-</body>
+<!-- <p class="title">Welcome, {{ userData.firstName }} {{ userData.lastName }} </p> -->

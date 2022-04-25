@@ -12,18 +12,18 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  getAll() {
-    const params = { "api_key": this.apiKey };
-
-    return this.http.get<SearchResults>(`http://localhost:3030/parecord/getparecords`);
+  getBasedOnSize(size: number) {
+    const params = { "api_key": this.apiKey, "student.size__range": "5000.." };
+    const fields = ["id", "school.name", "school.state"];
+    const url = this.linkFactory(params, fields);
+    return this.http.get<SearchResults>(url);
   }
 
 
   linkFactory(queryParams: any, fields: string[]) {
-    var link = `https://api.data.gov/ed/collegescorecard/v1/schools`;
+    var link = `https://api.data.gov/ed/collegescorecard/v1/schools?`;
+    queryParams.fields = fields
     link += this.addQueryParams(queryParams);
-    link += this.addFields(fields);
-    console.log(link);
     return link;
   }
 
@@ -33,10 +33,6 @@ export class SearchService {
       keys.push(encodeURIComponent(key) + "=" + encodeURIComponent(queryParams[key]));
     }
     return keys.join('&');
-  }
-
-  addFields(fields: string[]) {
-    return fields.join(',');
   }
 
 }

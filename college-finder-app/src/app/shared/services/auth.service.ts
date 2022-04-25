@@ -12,8 +12,6 @@ import { BehaviorSubject, Observable, first } from 'rxjs';
 })
 export class AuthService {
 
-  userData: any;
-
   username: string = '';
 
   private currentUserSubject: BehaviorSubject<User>;
