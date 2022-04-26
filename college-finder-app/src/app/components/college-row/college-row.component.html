@@ -1,1 +1,22 @@
-<p>college-row works!</p>
+<mat-card class="card">
+    <div class="name-holder">
+        <div class="name">
+            <h3 class="location">{{city}} {{state}}, {{zip}}</h3>
+            <h1>{{fullName}}</h1>
+        </div>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="info">
+        <h3>Average Cost</h3>
+        <h1>{{price}}</h1>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="info">
+        <h3>{{percentMen}}% Men, {{percentWomen}}% Women</h3>
+        <h1>{{size.toLocaleString()}} Students</h1>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div class="button-holder">
+        <a mat-raised-button color="accent" class="Visit-Button" href="{{website}}">Visit</a>
+    </div>
+</mat-card>

@@ -1,0 +1,47 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 125px;
+    vertical-align: middle;
+}
+
+.name {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.info {
+    text-align: left;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.Visit-Button {
+    background-color: #2b6777;
+    color: white;
+    font-size: 20px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    margin: auto 10px;
+    cursor: pointer;
+}
+
+.button-holder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.location {
+    margin-bottom: 5px;
+}
+
+.name-holder {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 35%;
+}
