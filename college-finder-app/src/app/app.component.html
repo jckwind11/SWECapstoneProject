@@ -1,8 +1,10 @@
 <mat-toolbar class="header" *ngIf="isUser">
+    <i class="material-icons school">school</i>
     <button mat-button routerLink="/home">Home</button>
     <button mat-button routerLink="/profile">Profile</button>
+    <button mat-button routerLink="/favorite">Favorites</button>
     <span class="example-spacer"></span>
-    <button mat-button (click)="logout">Sign Out</button>
+    <button mat-button (click)="logout()">Sign Out</button>
 </mat-toolbar>
 
 <!-- <mat-toolbar class="header" *ngIf="isUser">

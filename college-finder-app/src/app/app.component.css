@@ -19,3 +19,10 @@
 .right-button {
     float: right;
 }
+
+.school {
+    color: #2b6777;
+    pointer-events: none;
+    padding-right: 10px;
+    font-size: 5vh;
+}

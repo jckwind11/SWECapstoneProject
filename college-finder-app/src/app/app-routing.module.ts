@@ -10,6 +10,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { RedirectIfAuthenticatedGuard } from './shared/guard/redirect-if-authenticated.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SurveyComponent } from './components/survey/survey.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent, canActivate: [RedirectIfAuthenticatedGuard] },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [RedirectIfAuthenticatedGuard]},
   { path: 'reset-password', component: ForgotPasswordComponent, canActivate: [RedirectIfAuthenticatedGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard]}
+  { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard]},
+  { path: 'favorite', component: FavoriteComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -27,6 +27,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyComponent } from './components/survey/survey.component';
 import { CollegeRowComponent } from './components/college-row/college-row.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CollegeRowComponent } from './components/college-row/college-row.compon
     ForgotPasswordComponent,
     ProfileComponent,
     SurveyComponent,
-    CollegeRowComponent
+    CollegeRowComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
