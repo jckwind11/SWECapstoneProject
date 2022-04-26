@@ -29,6 +29,17 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
+  recommended() {
+    const params = {
+      "api_key": this.apiKey,
+      "latest.student.size__range": "10000..",
+      "cost.avg_net_price.overall__range": "..85000",
+      "school.state": "CA"
+    };
+    const url = this.linkFactory(params);
+    return this.http.get<SearchResults>(url);
+  }
+
 
   linkFactory(queryParams: any) {
     var link = `https://api.data.gov/ed/collegescorecard/v1/schools?`;

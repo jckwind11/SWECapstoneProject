@@ -18,13 +18,29 @@ export class HomeComponent implements OnInit {
 
   schools: SchoolSearchResults[] = [];
 
+  loading = false;
+
   constructor(
-    public authService: AuthService, 
-    public searchService: SearchService) { 
-    
+    public authService: AuthService,
+    public searchService: SearchService) {
+
   }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.searchService.recommended().subscribe(
+      result => {
+        this.schools = result.results;
+        this.schools.sort(function (a, b) {
+          return a['latest.cost.avg_net_price.overall'] - b['latest.cost.avg_net_price.overall'];
+        });
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        // this.notifService.showNotif(error.toString(), 'warning');
+      });
   }
 
   get isCustom(): boolean {
@@ -40,13 +56,18 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
+    this.loading = true;
     this.searchService.search(this.school_size, this.school_cost, this.school_state).subscribe(
       result => {
         this.schools = result.results;
-        console.log(this.schools);
+        this.schools.sort(function (a, b) {
+          return a['latest.cost.avg_net_price.overall'] - b['latest.cost.avg_net_price.overall'];
+        });
+        this.loading = false;
       },
       error => {
         console.log(error);
+        this.loading = false;
         // this.notifService.showNotif(error.toString(), 'warning');
       });
   }

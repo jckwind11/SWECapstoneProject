@@ -1,12 +1,12 @@
 <div class="holder">
     <mat-card class="settings-card">
-        <button mat-raised-button class="Search-Button" (click)="search()">Search</button>
         <div class="student-body-size-area">
             <mat-button-toggle-group [(ngModel)]="search_mode">
                 <mat-button-toggle value="Recommended">Recommended</mat-button-toggle>
                 <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>
             </mat-button-toggle-group>
         </div>
+        <button mat-raised-button class="Search-Button" (click)="search()" *ngIf="isCustom">Search</button>
         <div class="student-body-size-area" *ngIf="isCustom">
             <p class="label">Average Campus Size: {{school_size}}k+</p>
             <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50" [(ngModel)]="school_size"></mat-slider>
@@ -74,6 +74,7 @@
         </mat-form-field>
     </mat-card>
     <div class="school-holder">
+        <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
         <college-row class="card-item" *ngFor="let school of schools" [school]="school"></college-row>
     </div>
 </div>
