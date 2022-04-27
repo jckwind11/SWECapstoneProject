@@ -27,7 +27,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyComponent } from './components/survey/survey.component';
 import { CollegeRowComponent } from './components/college-row/college-row.component';
-import { FavoriteComponent } from './favorite/favorite.component';
+import { FavoriteComponent } from './components/favorite/favorite.component';
+import { CollegeInfoComponent } from './components/college-info/college-info.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
     ProfileComponent,
     SurveyComponent,
     CollegeRowComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    CollegeInfoComponent
   ],
   imports: [
     BrowserModule,

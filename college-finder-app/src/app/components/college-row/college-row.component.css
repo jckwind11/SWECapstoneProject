@@ -14,15 +14,15 @@
 .info {
     text-align: left;
     vertical-align: middle;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .Visit-Button {
     background-color: #2b6777;
     color: white;
-    font-size: 20px;
-    padding: 10px 60px;
+    font-size: 15px;
+    padding: 10px 30px;
     border-radius: 5px;
     margin: auto 10px;
     cursor: pointer;
@@ -46,14 +46,22 @@
     width: 35%;
 }
 
-.btns { 
+.btns {
     padding-top: 2.5%;
 }
 
-.red {
-    color: red;
+.gold {
+    color: goldenrod;
 }
 
 .grey {
     color: grey;
+}
+
+#website {
+    background-color: green;
+}
+
+#info {
+    background-color: green;
 }
