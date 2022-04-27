@@ -22,6 +22,10 @@ export class CollegeRowComponent implements OnInit {
 
   website = "vt.edu";
 
+  favorited = false;
+
+  toggle = false;
+
 
   @Input() school: SchoolSearchResults;
 
@@ -51,6 +55,21 @@ export class CollegeRowComponent implements OnInit {
     });
     if (typeof input !== 'undefined') {
       this.price = formatter.format(input);
+    }
+  }
+
+  isFavorite() {
+    
+  } 
+
+  change() {
+    this.toggle = !this.toggle;
+    if(this.toggle) {
+      this.favorited = true;
+      console.log(this.favorited)
+    }
+    else {
+      this.favorited = false;
     }
   }
 

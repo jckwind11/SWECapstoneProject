@@ -45,3 +45,15 @@
     margin-right: 10px;
     width: 35%;
 }
+
+.btns { 
+    padding-top: 2.5%;
+}
+
+.red {
+    color: red;
+}
+
+.grey {
+    color: grey;
+}

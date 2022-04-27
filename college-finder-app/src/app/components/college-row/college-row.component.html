@@ -19,4 +19,7 @@
     <div class="button-holder">
         <a mat-raised-button color="accent" class="Visit-Button" href="{{website}}">Visit</a>
     </div>
+    <div class="btns">
+        <button mat-button (click)="change()" [ngClass]="{'red': toggle, 'grey': !toggle}" class="btn"><mat-icon>star</mat-icon></button>
+    </div>
 </mat-card>
