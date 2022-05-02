@@ -1,1 +1,51 @@
-<p>college-info works!</p>
+<mat-card class="card">
+    <mat-card-content>
+        <div>
+            <h1 class="name">{{fullName}}</h1>
+            <h3 class="location">{{city}}, {{state}}</h3>
+        </div>
+        <br>
+        <br>
+        <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
+            <mat-card class="detail-card">
+                <mat-card-title>General Info</mat-card-title>
+                <br>
+                <mat-card-content>
+                    <h4 class="detail-card-label"><strong>University Type:</strong> {{ownernship}}</h4>
+                    <h4 class="detail-card-label"><strong>Primary Program:</strong> {{degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Highest Program:</strong> {{highest_degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="detail-card">
+                <mat-card-title>Academic Info</mat-card-title>
+                <br>
+                <mat-card-content>
+                    <h4 class="detail-card-label"><strong>University Type:</strong> {{ownernship}}</h4>
+                    <h4 class="detail-card-label"><strong>Primary Program:</strong> {{degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Highest Program:</strong> {{highest_degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="cost-card">
+                <mat-card-title>Cost Info</mat-card-title>
+                <br>
+                <mat-card-content>
+                    <h4 class="detail-card-label"><strong>University Type:</strong> {{ownernship}}</h4>
+                    <h4 class="detail-card-label"><strong>Primary Program:</strong> {{degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Highest Program:</strong> {{highest_degree_type}}</h4>
+                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-card-content>
+    <br><br>
+    <mat-divider inset></mat-divider>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

@@ -1,0 +1,31 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 2.5%;
+    padding: 2%;
+}
+
+.info-holder {
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    vertical-align: middle;
+}
+
+.detail-card {
+    width: 20%;
+}
+
+.detail-card-label {
+    font-size: 1.75vh;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 2vw;
+}
+
+.location {
+    font-weight: lighter;
+    font-size: 1.5vw;
+}

@@ -29,7 +29,6 @@ export class SearchService {
       params["school.name"] = name
     }
     const url = this.linkFactory(params);
-    //console.log(url);
     return this.http.get<SearchResults>(url);
   }
 
@@ -55,7 +54,7 @@ export class SearchService {
       "api_key": this.apiKey,
       "id": collegeId
     };
-    const url = this.linkFactory(params);
+    const url = this.linkFactory(params, true);
     return this.http.get<SearchResults>(url);
   }
 
@@ -71,9 +70,9 @@ export class SearchService {
   }
 
 
-  linkFactory(queryParams: any) {
+  linkFactory(queryParams: any, inDepth: boolean = false) {
     var link = `https://api.data.gov/ed/collegescorecard/v1/schools?`;
-    queryParams.fields = SearchService.fields;
+    queryParams.fields = inDepth ? SearchService.inDepthFields :  SearchService.fields;
     link += this.addQueryParams(queryParams);
     return link;
   }
@@ -99,5 +98,25 @@ export class SearchService {
     "latest.student.demographics.women",
     "latest.cost.avg_net_price.overall"
   ];
+
+  static inDepthFields = [
+    "id",
+    "latest.school.zip",
+    "latest.school.city",
+    "latest.school.name",
+    "latest.school.alias",
+    "latest.school.state",
+    "latest.school.school_url",
+    "latest.student.size",
+    "latest.student.demographics.men",
+    "latest.student.demographics.women",
+    "latest.cost.avg_net_price.overall",
+    "latest.school.price_calculator_url",
+    "latest.school.degree_urbanization",
+    "latest.school.degrees_awarded.predominant",
+    "latest.school.degrees_awarded.highest",
+    "latest.school.ownership",
+    "latest.admissions.admission_rate.overall"
+  ]
 
 }
