@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router'
 import { SchoolSearchResults } from 'src/app/shared/models/search/SchoolSearchResults';
 import { SearchService } from 'src/app/shared/services/search.service';
 
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+
 @Component({
   selector: 'app-college-info',
   templateUrl: './college-info.component.html',
@@ -28,9 +31,54 @@ export class CollegeInfoComponent implements OnInit {
   cost_calculator = "";
   img_url = "";
 
+  price = "";
+
+  size = 0;
+  percentWomen = 0;
+  percentMen = 0;
+
   admissions_rate = 0;
 
   loading = false;
+
+  // Pie
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    events: [],
+    hover: {mode: null},
+    plugins: {
+      title: {
+        display: true,
+        text: 'Population Breakdown'
+      },
+      datalabels: {
+        labels: {
+          title: {
+            font: {
+              weight: 'bold'
+            }
+          },
+        },
+        formatter: (value, _) => {
+          return value + '%';
+        },
+      },
+    }
+  };
+
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: ['Men', 'Women'],
+    datasets: [{
+      data: [this.percentMen, this.percentWomen],
+      backgroundColor: [
+        'rgb(137, 207, 240)',
+        'rgb(255,105,180)'
+      ]
+    }]
+  };
+
+  public pieChartType: ChartType = 'pie';
+  public pieChartPlugins = [ DatalabelsPlugin ];
 
   constructor(private route: ActivatedRoute, public searchService: SearchService) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -63,11 +111,16 @@ export class CollegeInfoComponent implements OnInit {
     this.city = this.school['latest.school.city'];
     this.state = this.school['latest.school.state'];
     this.website = this.school['latest.school.school_url'];
+    this.percentMen = Math.floor(this.school['latest.student.demographics.men'] * 100);
+    this.percentWomen = Math.floor(this.school['latest.student.demographics.women'] * 100);
     if (!/^https?:\/\//i.test(this.website)) {
       this.website = 'https://' + this.website;
     }
     this.img_url = "https://logo.clearbit.com/" + this.website;
+    this.admissions_rate = Math.floor(this.school['latest.admissions.admission_rate.overall'] * 100);
     this.cost_calculator = this.school['latest.school.price_calculator_url'];
+    this.size = this.school['latest.student.size'];
+    this.calculatePrice(this.school['latest.cost.avg_net_price.overall']);
     if (!/^https?:\/\//i.test(this.cost_calculator)) {
       this.cost_calculator = 'https://' + this.cost_calculator;
     }
@@ -146,9 +199,29 @@ export class CollegeInfoComponent implements OnInit {
         this.highest_degree_type = "unknown";
         break;
     }
-    this.admissions_rate = Math.floor(this.school['latest.admissions.admission_rate.overall'] * 100);
-    // this.size = this.school['latest.student.size'];
-    // this.website = this.school['latest.school.school_url'];
+
+    this.pieChartData = {
+      labels: ['Men', 'Women'],
+      datasets: [{
+        data: [this.percentMen, this.percentWomen],
+        backgroundColor: [
+          'rgb(137, 207, 240)',
+          'rgb(255,105,180)'
+        ]
+      }]
+    };
+  }
+
+  calculatePrice(input?: number) {
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+      maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    });
+    if (typeof input !== 'undefined') {
+      this.price = formatter.format(input);
+    }
   }
 
 }

@@ -8,7 +8,6 @@
 .header {
     display: flex;
     flex-direction: row;
-    gap: 1%;
     vertical-align: middle;
     height: 100%;
     align-items: center;
@@ -29,6 +28,17 @@ img {
 
 .detail-card {
     width: 20%;
+}
+
+.demographic-card {
+    width: 50%;
+}
+
+.demographic-card-content {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
 }
 
 .detail-card-label {

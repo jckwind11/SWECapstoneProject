@@ -19,6 +19,7 @@ import { AuthService } from "./shared/services/auth.service";
 
 import { MaterialModule } from './material-module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 import { CreateProfileComponent } from './components/create-profile/create-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
@@ -29,6 +30,7 @@ import { SurveyComponent } from './components/survey/survey.component';
 import { CollegeRowComponent } from './components/college-row/college-row.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { CollegeInfoComponent } from './components/college-info/college-info.component';
+
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { CollegeInfoComponent } from './components/college-info/college-info.com
     ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgChartsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

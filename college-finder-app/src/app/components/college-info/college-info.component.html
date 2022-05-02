@@ -8,17 +8,16 @@
             <span class="example-spacer"></span>
             <img [src]="img_url" alt="" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
         </div>
-        <br>
-        <br>
+        <br><br>
         <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
             <mat-card class="detail-card">
                 <mat-card-title>General Info</mat-card-title>
                 <br>
                 <mat-card-content>
-                    <h4 class="detail-card-label"><strong>University Type:</strong> {{ownernship}}</h4>
-                    <h4 class="detail-card-label"><strong>Primary Program:</strong> {{degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Highest Program:</strong> {{highest_degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
+                    <h4 class="detail-card-label"><strong>University Type:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Primary Program:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Highest Program:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> </h4>
                 </mat-card-content>
             </mat-card>
             <mat-card class="detail-card">
@@ -31,14 +30,36 @@
                     <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="cost-card">
+            <mat-card class="detail-card">
                 <mat-card-title>Cost Info</mat-card-title>
                 <br>
                 <mat-card-content>
-                    <h4 class="detail-card-label"><strong>University Type:</strong> {{ownernship}}</h4>
-                    <h4 class="detail-card-label"><strong>Primary Program:</strong> {{degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Highest Program:</strong> {{highest_degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> {{admissions_rate}}%</h4>
+                    <h4 class="detail-card-label"><strong>University Type:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Primary Program:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Highest Program:</strong> </h4>
+                    <h4 class="detail-card-label"><strong>Admissions Rate:</strong> </h4>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <br><br>
+        <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
+            <mat-card class="demographic-card">
+                <mat-card-content class="demographic-card-content">
+                    <div>
+                        <mat-card-title>Demographic Info</mat-card-title>
+                        <br>
+                        <h4 class="detail-card-label"><strong>University Size:</strong> {{size.toLocaleString()}}</h4>
+                        <h4 class="detail-card-label"><strong>Primary Program:</strong> </h4>
+                        <h4 class="detail-card-label"><strong>Highest Program:</strong> </h4>
+                        <h4 class="detail-card-label"><strong>Admissions Rate:</strong> </h4>
+                        <h4 class="detail-card-label"><strong>Highest Program:</strong> </h4>
+                        <h4 class="detail-card-label"><strong>Admissions Rate:</strong> </h4>
+                    </div>
+                    <span class="example-spacer"></span>
+                    <div class="chart">
+                        <canvas baseChart [data]="pieChartData" type="pie" [options]="pieChartOptions" [plugins]="pieChartPlugins">
+                        </canvas>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
