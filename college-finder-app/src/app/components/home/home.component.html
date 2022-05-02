@@ -1,7 +1,8 @@
+<mat-progress-bar mode="indeterminate" [ngStyle]="{'visibility': loading ? 'visible' : 'hidden'}"></mat-progress-bar>
 <div class="holder">
     <mat-card class="settings-card">
         <div class="student-body-size-area">
-            <mat-button-toggle-group [(ngModel)]="search_mode">
+            <mat-button-toggle-group [(ngModel)]="search_mode" (change)="didChange()">
                 <mat-button-toggle value="Recommended">Recommended</mat-button-toggle>
                 <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>
             </mat-button-toggle-group>

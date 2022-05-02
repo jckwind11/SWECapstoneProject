@@ -53,6 +53,12 @@ export class HomeComponent implements OnInit {
     return !(this.search_mode == "Recommended");
   }
 
+  didChange() {
+    if (!this.isCustom) {
+      this.searchRecommended();
+    }
+  }
+
   formatLabel(value: number) {
     return value + 'k';
   }
