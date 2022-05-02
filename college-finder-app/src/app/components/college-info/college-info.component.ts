@@ -4,9 +4,8 @@ import { SchoolSearchResults } from 'src/app/shared/models/search/SchoolSearchRe
 import { SearchService } from 'src/app/shared/services/search.service';
 
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
-import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
-import { bottom, right, start, top } from '@popperjs/core';
+import { right } from '@popperjs/core';
 
 @Component({
   selector: 'app-college-info',
@@ -332,6 +331,5 @@ export class CollegeInfoComponent implements OnInit {
   };
 
   public pieChartType: ChartType = 'pie';
-  public pieChartPlugins = [DatalabelsPlugin];
 
 }
