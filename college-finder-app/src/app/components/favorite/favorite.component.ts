@@ -22,7 +22,21 @@ export class FavoriteComponent implements OnInit {
     this.loading = true;
     this.favoriteService.userFavorites.subscribe((result: UserFavorites) => {
       this.favorites = result.favoriteColleges;
-      this.searchService.searchById(this.favorites).subscribe(
+      this.load();
+    }, 
+    error => {
+      console.log(error);
+      this.loading = false;
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+
+  private load() {
+    this.loading = true;
+    this.searchService.searchByIds(this.favorites).subscribe(
         result => {
           this.schools = result.results;
           this.schools.sort(function (a, b) {
@@ -34,16 +48,5 @@ export class FavoriteComponent implements OnInit {
           console.log(error);
           this.loading = false;
         });
-    }, 
-    error => {
-      console.log(error);
-      this.loading = false;
-    });
   }
-
-  ngOnInit(): void {
-    
-    
-  }
-
 }
