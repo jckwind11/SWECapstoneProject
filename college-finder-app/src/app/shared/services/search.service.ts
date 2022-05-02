@@ -19,6 +19,7 @@ export class SearchService {
       "api_key": this.apiKey,
       "latest.student.size__range": sizeRange,
       "cost.avg_net_price.overall__range": costRange,
+      "sort": "latest.cost.avg_net_price.overall",
       "page": page
     };
     if (state.length != 0) {

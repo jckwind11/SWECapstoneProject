@@ -8,7 +8,7 @@
     </div>
     <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
     <div class="student-body-size-area" *ngIf="isCustom">
-      <p class="label">School name:</p>
+      <p class="label">School name (Optional):</p>
       <input type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
     </div>
     <div class="student-body-size-area" *ngIf="isCustom">
@@ -22,7 +22,7 @@
         [(ngModel)]="school_cost"></mat-slider>
     </div>
     <mat-form-field appearance="fill" *ngIf="isCustom">
-      <mat-label>State</mat-label>
+      <mat-label>State (Optional)</mat-label>
       <select matNativeControl [(ngModel)]="school_state">
         <option value="">---------</option>
         <option value="AL">Alabama</option>
