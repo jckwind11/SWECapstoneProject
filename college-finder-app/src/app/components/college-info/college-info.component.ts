@@ -267,9 +267,17 @@ export class CollegeInfoComponent implements OnInit {
   // Pie
   public pieChartOptionsGender: ChartConfiguration['options'] = {
     responsive: true,
-    events: [],
-    hover: { mode: null },
+    events: ['mousemove', 'mouseout'],
+    hover: { mode: 'index' },
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.formattedValue;
+            return " " + label + '%';
+          }
+        }
+      },
       legend: {
         display: true,
         position: right,
@@ -277,20 +285,6 @@ export class CollegeInfoComponent implements OnInit {
       title: {
         display: true,
         text: 'Gender Breakdown'
-      },
-      datalabels: {
-        color: ['rgb(0,0,0)', 'rgb(255,255,255)'],
-        labels: {
-          title: {
-            font: {
-              weight: 'bold',
-              size: 15
-            }
-          },
-        },
-        formatter: (value, _) => {
-          return value + '%';
-        },
       },
     }
   };
@@ -315,24 +309,7 @@ export class CollegeInfoComponent implements OnInit {
       title: {
         display: true,
         text: 'Race Breakdown'
-      },
-      datalabels: {
-        anchor: 'end',
-        align: 'start',
-        offset: 10,
-        color: 'rgb(0,0,0)',
-        labels: {
-          title: {
-            font: {
-              weight: 'bold',
-              size: 15
-            }
-          },
-        },
-        formatter: (value, _) => {
-          return value + '%';
-        },
-      },
+      }
     }
   };
 
