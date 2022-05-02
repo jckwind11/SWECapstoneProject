@@ -11,8 +11,6 @@ import { SurveyForm } from '../../shared/models/survey/survey';
   styleUrls: ['./survey.component.css']
 })
 export class SurveyComponent implements OnInit {
-
-  @ViewChild('f', { static: true }) f: NgForm;
   
   survey: FormGroup;
   allQuestions: SurveyQuestion[];
