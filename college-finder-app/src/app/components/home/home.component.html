@@ -8,6 +8,10 @@
     </div>
     <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
     <div class="student-body-size-area" *ngIf="isCustom">
+      <p class="label">School name:</p>
+      <input type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
+    </div>
+    <div class="student-body-size-area" *ngIf="isCustom">
       <p class="label">Average Campus Size: {{school_size}}k+</p>
       <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50"
         [(ngModel)]="school_size"></mat-slider>

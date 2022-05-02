@@ -12,7 +12,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  search(size: number, cost: number, state: string, page: number = 0) {
+  search(name: String = '', size: number, cost: number, state: string, page: number = 0) {
     const sizeRange: string = (size * 1000) + "..";
     const costRange: string = ".." + (cost * 1000);
     const params = {
@@ -24,8 +24,11 @@ export class SearchService {
     if (state.length != 0) {
       params["school.state"] = state;
     }
+    if (name != '') {
+      params["school.name"] = name
+    }
     const url = this.linkFactory(params);
-    console.log(url);
+    //console.log(url);
     return this.http.get<SearchResults>(url);
   }
 

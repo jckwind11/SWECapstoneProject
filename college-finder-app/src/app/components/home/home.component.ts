@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   search_mode = "Recommended";
 
+  school_name: String = "";
   school_size = 35;
   school_cost = 30;
   school_state = "";
@@ -72,7 +73,7 @@ export class HomeComponent implements OnInit {
 
   search() {
     this.loading = true;
-    this.searchService.search(this.school_size, this.school_cost, this.school_state, this.currentPage).subscribe(
+    this.searchService.search(this.school_name, this.school_size, this.school_cost, this.school_state, this.currentPage).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;
