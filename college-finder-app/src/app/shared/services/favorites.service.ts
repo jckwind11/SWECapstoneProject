@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { arrayUnion, arrayRemove } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { UserFavorites } from '../models/favorite/favorite';
 import { AuthService } from './auth.service';
@@ -10,41 +11,27 @@ import { AuthService } from './auth.service';
 export class FavoritesService {
 
   public userFavorites: Observable<UserFavorites>;
-  private favoritesArray: String[];
+  public favoritesArray: String[];
 
   constructor(
     private firestore: AngularFirestore,
     private auth: AuthService
-  ) { 
-    this.getFavorites();
+  ) {
+    const doc = this.firestore.doc<any>(`favorites/${this.auth.currentUserValue.uid}`);
+    this.userFavorites = doc.valueChanges();
   }
 
-  public async getFavorites() {
-    const doc = this.firestore.doc<any>('favorites/' + this.auth.currentUserValue.uid);
-    this.userFavorites = doc.valueChanges();
-    this.userFavorites.subscribe( data => {
-      if (data != null) {
-        this.favoritesArray = data.favoriteColleges;
-      }
-      else {
-        doc.set({favoriteColleges: []}, { merge: true });
-      }
-    })
-  } 
-
   public async addFavorite(schoolId: String) {
-    const doc = this.firestore.doc<any>('favorites/' + this.auth.currentUserValue.uid);
-    const newData: UserFavorites = {
-      favoriteColleges: [...this.favoritesArray, schoolId]
-    };
-    doc.update(newData);
+    const doc = this.firestore.doc<any>(`favorites/${this.auth.currentUserValue.uid}`);
+    await doc.update({
+      favoriteColleges: arrayUnion(schoolId)
+    })
   }
 
   public async removeFavorite(schoolId: String) {
     const doc = this.firestore.doc<any>('favorites/' + this.auth.currentUserValue.uid);
-    const newData: UserFavorites = {
-      favoriteColleges: this.favoritesArray.filter(e => e !== schoolId)
-    };
-    doc.update(newData);
+    await doc.update({
+      favoriteColleges: arrayRemove(schoolId)
+    })
   }
- }
+}

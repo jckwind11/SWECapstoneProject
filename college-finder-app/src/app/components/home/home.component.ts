@@ -23,22 +23,26 @@ export class HomeComponent implements OnInit {
   numPages = 0;
   currentPage = 0;
   schools: SchoolSearchResults[] = [];
-  userFavorites: Observable<UserFavorites>;
+  favorites: String[] = [];
 
   loading = false;
 
   constructor(
     public authService: AuthService,
     public searchService: SearchService,
-    public favoritesService: FavoritesService) {
+    public favoriteService: FavoritesService) {
 
-      
   }
 
   ngOnInit(): void {
-    this.userFavorites = this.favoritesService.userFavorites;
     this.loading = true;
-    this.favoritesService.getFavorites()
+    this.favoriteService.userFavorites.subscribe(
+      (result: UserFavorites) => {
+        this.favorites = result.favoriteColleges;
+      },
+      error => {
+        console.log(error);
+      });
     this.searchService.recommended().subscribe(
       result => {
         this.schools = result.results;

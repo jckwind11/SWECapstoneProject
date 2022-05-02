@@ -81,7 +81,7 @@
     </mat-card>
     <div class="school-holder">
         <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
-        <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
+        <college-row class="card-item" *ngFor="let school of schools" [school]="school" [isFavorite]='this.favorites.includes(school.id + "")'>
         </college-row>
 
         <div *ngIf="numPages > 0">
