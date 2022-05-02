@@ -19,6 +19,19 @@ export class FavoritesService {
   ) {
     const doc = this.firestore.doc<any>(`favorites/${this.auth.currentUserValue.uid}`);
     this.userFavorites = doc.valueChanges();
+    this.createFavoritesIfNeeded();
+  }
+
+  private async createFavoritesIfNeeded() {
+    const doc = this.firestore.doc<any>(`favorites/${this.auth.currentUserValue.uid}`);
+    doc.valueChanges().subscribe((data) => {
+      if (data != null) {
+        this.favoritesArray = data.favoriteColleges;
+      }
+      else {
+        doc.set({favoriteColleges: []}, { merge: true });
+      }
+    })
   }
 
   public async addFavorite(schoolId: String) {
