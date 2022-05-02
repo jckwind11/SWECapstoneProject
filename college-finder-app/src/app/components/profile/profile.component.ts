@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/models/user/user';
 import {Router} from '@angular/router';
+import { UserData } from 'src/app/shared/models/user/userData';
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +20,7 @@ export class ProfileComponent implements OnInit {
 
   private userDoc: AngularFirestoreDocument<any>;
 
-  // Get local saved data before retrieving data from the db
-  userData: any = JSON.parse(localStorage.getItem('userData') || '');
+  userData: UserData;
 
   constructor(
     private afs: AngularFirestore, 
@@ -28,16 +28,16 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private router: Router,
     ) { 
-    this.userDoc = afs.doc<any>('users/' + localStorage.getItem('user.uid'));
-    this.userDoc.valueChanges().subscribe( data => {
-      this.userData = data;
-    })
 
     this.form = this.formBuilder.group({
-      username: [this.userData.username, Validators.required],
-      birthday: [this.userData.birthday],
-      hometown: [this.userData.hometown]
+      username: ['', Validators.required],
     })
+    this.userData = authService.currentUserValue.data
+    this.userDoc = afs.doc<UserData>('users/' + authService.currentUserValue.uid);
+    this.form.setValue({
+      username: this.userData.username
+    })
+   
 
     this.updateSuccess = false;
   }
@@ -53,16 +53,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateAccount() {
-    console.log(this.f.username.value)
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
     // Save data
-    this.userData.username = this.f.username.value
-    this.userData.birthday = this.f.birthday.value
-    this.userData.hometown = this.f.hometown.value
+    this.userData.username = this.f.username.value;
 
     this.update(this.userData);
 
