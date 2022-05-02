@@ -78,7 +78,7 @@ export class AuthService {
     await userRef.set(userData, { merge: true });
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
-    this.router.navigate(['home']);
+    this.router.navigate(['survey']);
   }
 
   private async getUserData(thisUser: auth.User) {

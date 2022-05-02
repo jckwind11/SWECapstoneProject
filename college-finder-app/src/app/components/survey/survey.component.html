@@ -12,7 +12,7 @@
           <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
             Survey Saved!
           </div>
-          <form #f="ngForm" (ngSubmit)="saveSurvey(f)">
+          <form [formGroup]="survey" (ngSubmit)="saveSurvey()">
             <div *ngFor="let question of allQuestions; let i = index">
               <h3>{{i + 1}}) {{question.question}} <span *ngIf="question.questionType === QuestionType.Checkbox">(Check
                   all that apply)</span></h3>
@@ -20,7 +20,8 @@
               <!-- Dropdown -->
               <div *ngIf="question.questionType === QuestionType.Dropdown && i !== 5">
                 <div class="col-md-6">
-                  <select name="question{{i+1}}" id="question{{i+1}}" class="form-select" ngModel>
+                  <select name="question{{i+1}}" id="question{{i+1}}" class="form-select"
+                    formControlName="question{{i+1}}">
                     <option *ngFor="let answerChoice of question.answerChoices; let x = index" value="{{x}}">
                       {{answerChoice}}
                     </option>
@@ -31,7 +32,7 @@
               <!-- State Dropdown -->
               <div *ngIf="i === 5">
                 <div class="col-md-6">
-                  <select name="question6" id="question6" class="form-select" ngModel>
+                  <select name="question6" id="question6" class="form-select" formControlName="question6">
                     <option value=""></option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -92,7 +93,7 @@
               <div *ngIf="question.questionType === QuestionType.Checkbox">
                 <div class="form-check" *ngFor="let answerChoice of question.answerChoices; let x = index">
                   <input type="checkbox" class="form-check-input" id="question{{i+1}}_{{x}}"
-                    name="question{{i+1}}_{{x}}" ngModel>
+                    name="question{{i+1}}_{{x}}" formControlName="question{{i+1}}_{{x}}">
                   <label for="question{{i+1}}_{{x}}" class="form-check-label">
                     {{answerChoice}}
                   </label>
@@ -102,7 +103,7 @@
               <!-- Number -->
               <div *ngIf="question.questionType === QuestionType.Number">
                 <div class="col-md-6">
-                  <input class="form-control" type="number" name="question{{i+1}}" ngModel>
+                  <input class="form-control" type="number" name="question{{i+1}}" formControlName="question{{i+1}}">
                 </div>
               </div>
 
@@ -111,6 +112,9 @@
 
             <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
               {{errorMessage}}
+            </div>
+            <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
+              Survey Saved! <a routerLink="/home">View Recommendations</a>
             </div>
             <hr>
 
