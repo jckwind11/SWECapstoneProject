@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { SearchService } from '../../shared/services/search.service';
 import { SchoolSearchResults } from '../../shared/models/search/SchoolSearchResults';
+import { FavoritesService } from 'src/app/shared/services/favorites.service';
+import { Observable } from 'rxjs';
+import { UserFavorites } from 'src/app/shared/models/favorite/favorite';
 
 @Component({
   selector: 'app-home',
@@ -17,17 +20,22 @@ export class HomeComponent implements OnInit {
   school_state = "";
 
   schools: SchoolSearchResults[] = [];
+  userFavorites: Observable<UserFavorites>;
 
   loading = false;
 
   constructor(
     public authService: AuthService,
-    public searchService: SearchService) {
+    public searchService: SearchService,
+    public favoritesService: FavoritesService) {
 
+      
   }
 
   ngOnInit(): void {
+    this.userFavorites = this.favoritesService.userFavorites;
     this.loading = true;
+    this.favoritesService.getFavorites()
     this.searchService.recommended().subscribe(
       result => {
         this.schools = result.results;

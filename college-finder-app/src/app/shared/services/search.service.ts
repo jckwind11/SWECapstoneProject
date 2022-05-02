@@ -29,6 +29,15 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
+  searchById(collegeIds: String[]) {
+    const params = {
+      "api_key": this.apiKey,
+      "id": collegeIds
+    };
+    const url = this.linkFactory(params);
+    return this.http.get<SearchResults>(url);
+  }
+
   recommended() {
     const params = {
       "api_key": this.apiKey,

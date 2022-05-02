@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserFavorites } from 'src/app/shared/models/favorite/favorite';
+import { FavoritesService } from 'src/app/shared/services/favorites.service';
 import { SchoolSearchResults } from '../../shared/models/search/SchoolSearchResults';
 
 @Component({
@@ -7,7 +10,6 @@ import { SchoolSearchResults } from '../../shared/models/search/SchoolSearchResu
   styleUrls: ['./college-row.component.css']
 })
 export class CollegeRowComponent implements OnInit {
-
   fullName = "";
 
   city = "";
@@ -28,8 +30,9 @@ export class CollegeRowComponent implements OnInit {
 
 
   @Input() school: SchoolSearchResults;
+  @Input() userFavorites: Observable<UserFavorites>;
 
-  constructor() { }
+  constructor(private favoriteService: FavoritesService) {}
 
   ngOnInit(): void {
     this.fullName = this.school['latest.school.name'];
@@ -44,6 +47,12 @@ export class CollegeRowComponent implements OnInit {
     this.percentMen = Math.floor(this.school['latest.student.demographics.men'] * 100);
     this.percentWomen = Math.floor(this.school['latest.student.demographics.women'] * 100);
     this.calculatePrice(this.school['latest.cost.avg_net_price.overall']);
+
+    this.userFavorites.subscribe(data => {
+      this.favorited = data.favoriteColleges.includes(`${this.school.id}`);
+      this.toggle = this.favorited;
+    });
+    
   }
 
   calculatePrice(input?: number) {
@@ -58,17 +67,18 @@ export class CollegeRowComponent implements OnInit {
     }
   }
 
-  isFavorite() {
+  async isFavorite() {
     
   } 
 
   change() {
     this.toggle = !this.toggle;
     if(this.toggle) {
+      this.favoriteService.addFavorite(`${this.school.id}`);
       this.favorited = true;
-      console.log(this.favorited)
     }
     else {
+      this.favoriteService.removeFavorite(`${this.school.id}`);
       this.favorited = false;
     }
   }
