@@ -1,29 +1,29 @@
 <div class="holder">
-  <mat-card class="settings-card">
-    <div class="student-body-size-area">
-      <mat-button-toggle-group [(ngModel)]="search_mode">
-        <mat-button-toggle value="Recommended">Recommended</mat-button-toggle>
-        <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-    <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
-    <div class="student-body-size-area" *ngIf="isCustom">
-      <p class="label">School name (Optional):</p>
-      <input type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
-    </div>
-    <div class="student-body-size-area" *ngIf="isCustom">
-      <p class="label">Average Campus Size: {{school_size}}k+</p>
-      <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50"
-        [(ngModel)]="school_size"></mat-slider>
-    </div>
-    <div class="student-body-size-area" *ngIf="isCustom">
-      <p class="label">Yearly cost less than ${{school_cost}}k</p>
-      <mat-slider class="slider" thumbLabel [displayWith]="formatCost" min="0" max="100" step="5" value="50"
-        [(ngModel)]="school_cost"></mat-slider>
-    </div>
-    <mat-form-field appearance="fill" *ngIf="isCustom">
-      <mat-label>State (Optional)</mat-label>
-      <select matNativeControl [(ngModel)]="school_state">
+    <mat-card class="settings-card">
+        <div class="student-body-size-area">
+            <mat-button-toggle-group [(ngModel)]="search_mode">
+                <mat-button-toggle value="Recommended">Recommended</mat-button-toggle>
+                <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
+        <div class="student-body-size-area" *ngIf="isCustom">
+            <mat-form-field appearance="fill">
+                <mat-label>School name (Optional):</mat-label>
+                <input matInput type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
+            </mat-form-field>
+        </div>
+        <div class="student-body-size-area" *ngIf="isCustom">
+            <p class="label">Average Campus Size: {{school_size}}k+</p>
+            <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50" [(ngModel)]="school_size"></mat-slider>
+        </div>
+        <div class="student-body-size-area" *ngIf="isCustom">
+            <p class="label">Yearly cost less than ${{school_cost}}k</p>
+            <mat-slider class="slider" thumbLabel [displayWith]="formatCost" min="0" max="100" step="5" value="50" [(ngModel)]="school_cost"></mat-slider>
+        </div>
+        <mat-form-field appearance="fill" *ngIf="isCustom">
+            <mat-label>State (Optional)</mat-label>
+            <select matNativeControl [(ngModel)]="school_state">
         <option value="">---------</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
@@ -77,47 +77,46 @@
         <option value="WI">Wisconsin</option>
         <option value="WY">Wyoming</option>
       </select>
-    </mat-form-field>
-  </mat-card>
-  <div class="school-holder">
-    <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
-    <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
-    </college-row>
+        </mat-form-field>
+    </mat-card>
+    <div class="school-holder">
+        <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
+        <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
+        </college-row>
 
-    <div *ngIf="numPages > 0">
-      <hr>
-      <ul class="pagination pagination-lg" *ngIf="numPages < 7">
-        <li class="page-item" *ngFor="let i of [].constructor(numPages); let a = index"
-          [ngClass]="currentPage == a ? 'active' : ''">
-          <button class="page-link" (click)="changePage(a)">{{a+1}}</button>
-        </li>
-      </ul>
-      <ul class="pagination pagination-lg" *ngIf="numPages >= 7">
-        <li class="page-item" *ngIf="currentPage > 2">
-          <button class="page-link" (click)="changePage(0)">1</button>
-        </li>
-        <li class="page-item" *ngIf="currentPage > 2">
-          <button class="page-link">...</button>
-        </li>
-        <li class="page-item" *ngIf="currentPage != 0">
-          <button class="page-link" (click)="changePage(currentPage - 1)">{{currentPage}}</button>
-        </li>
-        <li class="page-item active">
-          <button class="page-link" (click)="changePage(currentPage)">{{currentPage + 1}}</button>
-        </li>
-        <li class="page-item" *ngIf="currentPage != (numPages - 1)">
-          <button class="page-link" (click)="changePage(currentPage + 1)">{{currentPage + 2}}</button>
-        </li>
-        <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
-          <button class="page-link">...</button>
-        </li>
-        <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
-          <button class="page-link" (click)="changePage(numPages - 1)">{{numPages}}</button>
-        </li>
-      </ul>
+        <div *ngIf="numPages > 0">
+            <hr>
+            <ul class="pagination pagination-lg" *ngIf="numPages < 7">
+                <li class="page-item" *ngFor="let i of [].constructor(numPages); let a = index" [ngClass]="currentPage == a ? 'active' : ''">
+                    <button class="page-link" (click)="changePage(a)">{{a+1}}</button>
+                </li>
+            </ul>
+            <ul class="pagination pagination-lg" *ngIf="numPages >= 7">
+                <li class="page-item" *ngIf="currentPage > 2">
+                    <button class="page-link" (click)="changePage(0)">1</button>
+                </li>
+                <li class="page-item" *ngIf="currentPage > 2">
+                    <button class="page-link">...</button>
+                </li>
+                <li class="page-item" *ngIf="currentPage != 0">
+                    <button class="page-link" (click)="changePage(currentPage - 1)">{{currentPage}}</button>
+                </li>
+                <li class="page-item active">
+                    <button class="page-link" (click)="changePage(currentPage)">{{currentPage + 1}}</button>
+                </li>
+                <li class="page-item" *ngIf="currentPage != (numPages - 1)">
+                    <button class="page-link" (click)="changePage(currentPage + 1)">{{currentPage + 2}}</button>
+                </li>
+                <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
+                    <button class="page-link">...</button>
+                </li>
+                <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
+                    <button class="page-link" (click)="changePage(numPages - 1)">{{numPages}}</button>
+                </li>
+            </ul>
+        </div>
+
     </div>
-
-  </div>
 
 
 </div>
