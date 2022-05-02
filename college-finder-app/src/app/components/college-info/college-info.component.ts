@@ -5,6 +5,7 @@ import { SearchService } from 'src/app/shared/services/search.service';
 
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { FavoritesService } from 'src/app/shared/services/favorites.service';
 
 @Component({
   selector: 'app-college-info',
@@ -40,6 +41,7 @@ export class CollegeInfoComponent implements OnInit {
   admissions_rate = 0;
 
   loading = false;
+  toggle = false;
 
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -52,10 +54,13 @@ export class CollegeInfoComponent implements OnInit {
         text: 'Population Breakdown'
       },
       datalabels: {
+        color: ['rgb(0,0,0)', 'rgb(255,255,255)'],
+        
         labels: {
           title: {
             font: {
-              weight: 'bold'
+              weight: 'bold',
+              size: 15
             }
           },
         },
@@ -80,11 +85,12 @@ export class CollegeInfoComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [ DatalabelsPlugin ];
 
-  constructor(private route: ActivatedRoute, public searchService: SearchService) {
+  constructor(private route: ActivatedRoute, public searchService: SearchService, private favoriteService: FavoritesService) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.fullName = this.route.snapshot.queryParamMap.get('name');
     this.city = this.route.snapshot.queryParamMap.get('city');
     this.state = this.route.snapshot.queryParamMap.get('state');
+    this.toggle = this.route.snapshot.queryParamMap.get('toggle') == "true";
   }
 
   ngOnInit(): void {
@@ -221,6 +227,17 @@ export class CollegeInfoComponent implements OnInit {
     });
     if (typeof input !== 'undefined') {
       this.price = formatter.format(input);
+    }
+  }
+
+  change() {
+    this.toggle = !this.toggle;
+    console.log(this.toggle);
+    if(this.toggle) {
+      this.favoriteService.addFavorite(`${this.school.id}`);
+    }
+    else {
+      this.favoriteService.removeFavorite(`${this.school.id}`);
     }
   }
 

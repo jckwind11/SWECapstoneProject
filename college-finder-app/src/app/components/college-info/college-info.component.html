@@ -67,6 +67,9 @@
     <br><br>
     <mat-divider inset></mat-divider>
     <mat-card-actions>
+        <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
+            <mat-icon>star</mat-icon>
+          </button>
         <a mat-button href="{{website}}">School Website</a>
         <a mat-button href="{{cost_calculator}}">School Cost Calculator</a>
     </mat-card-actions>

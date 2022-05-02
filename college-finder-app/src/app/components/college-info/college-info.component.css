@@ -58,3 +58,11 @@ img {
 .example-spacer {
     flex: 1 1 auto;
 }
+
+.gold {
+    color: goldenrod;
+}
+
+.grey {
+    color: grey;
+}

@@ -17,7 +17,7 @@
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div class="button-holder">
-        <button mat-raised-button class="Visit-Button" id="info" routerLink="/info/{{school.id}}" [queryParams]="{name: school['latest.school.name'], city: school['latest.school.city'],state: school['latest.school.state'] }">More Info</button>
+        <button mat-raised-button class="Visit-Button" id="info" routerLink="/info/{{school.id}}" [queryParams]="{name: school['latest.school.name'], city: school['latest.school.city'],state: school['latest.school.state'], toggle: toggle }">More Info</button>
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div class="button-holder">
