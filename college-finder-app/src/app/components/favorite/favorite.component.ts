@@ -15,12 +15,28 @@ export class FavoriteComponent implements OnInit {
   userFavorites: Observable<UserFavorites>
 
   schools: SchoolSearchResults[] = [];
+  favorites: String[] = [];
   loading = false;
 
-  constructor(favoriteService: FavoritesService, searchService: SearchService) { 
-    this.userFavorites = favoriteService.userFavorites;
-    this.userFavorites.subscribe(data => {
-      searchService.searchById(data.favoriteColleges).subscribe(
+  constructor(private favoriteService: FavoritesService, private searchService: SearchService) {
+    this.loading = true;
+    this.favoriteService.userFavorites.subscribe((result: UserFavorites) => {
+      this.favorites = result.favoriteColleges;
+      this.load();
+    }, 
+    error => {
+      console.log(error);
+      this.loading = false;
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+
+  private load() {
+    this.loading = true;
+    this.searchService.searchByIds(this.favorites).subscribe(
         result => {
           this.schools = result.results;
           this.schools.sort(function (a, b) {
@@ -31,12 +47,6 @@ export class FavoriteComponent implements OnInit {
         error => {
           console.log(error);
           this.loading = false;
-          // this.notifService.showNotif(error.toString(), 'warning');
         });
-    });
   }
-
-  ngOnInit(): void {
-  }
-
 }

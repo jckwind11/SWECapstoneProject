@@ -8,12 +8,6 @@
         </div>
         <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
         <div class="student-body-size-area" *ngIf="isCustom">
-            <mat-form-field appearance="fill">
-                <mat-label>School name (Optional):</mat-label>
-                <input matInput type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
-            </mat-form-field>
-        </div>
-        <div class="student-body-size-area" *ngIf="isCustom">
             <p class="label">Average Campus Size: {{school_size}}k+</p>
             <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50" [(ngModel)]="school_size"></mat-slider>
         </div>
@@ -21,6 +15,10 @@
             <p class="label">Yearly cost less than ${{school_cost}}k</p>
             <mat-slider class="slider" thumbLabel [displayWith]="formatCost" min="0" max="100" step="5" value="50" [(ngModel)]="school_cost"></mat-slider>
         </div>
+        <mat-form-field appearance="fill" *ngIf="isCustom">
+            <mat-label>School name (Optional):</mat-label>
+            <input matInput type="text" id="school_name" name="school_name" [(ngModel)]="school_name">
+        </mat-form-field>
         <mat-form-field appearance="fill" *ngIf="isCustom">
             <mat-label>State (Optional)</mat-label>
             <select matNativeControl [(ngModel)]="school_state">
@@ -81,7 +79,7 @@
     </mat-card>
     <div class="school-holder">
         <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
-        <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
+        <college-row class="card-item" *ngFor="let school of schools" [school]="school" [isFavorite]='this.favorites.includes(school.id + "")'>
         </college-row>
 
         <div *ngIf="numPages > 0">

@@ -1,5 +1,5 @@
 <div class="school-holder">
-  <h1 *ngIf="!loading && schools.length == 0">No favorites</h1>
-  <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
-  </college-row>
+    <h1 *ngIf="!loading && schools.length == 0">No favorites</h1>
+    <college-row class="card-item" *ngFor="let school of schools" [school]="school" [isFavorite]='this.favorites.includes(school.id + "")'>
+    </college-row>
 </div>

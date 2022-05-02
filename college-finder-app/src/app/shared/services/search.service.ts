@@ -41,10 +41,19 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
-  searchById(collegeIds: String[]) {
+  searchByIds(collegeIds: String[]) {
     const params = {
       "api_key": this.apiKey,
       "id": collegeIds
+    };
+    const url = this.linkFactory(params);
+    return this.http.get<SearchResults>(url);
+  }
+
+  searchById(collegeId: String) {
+    const params = {
+      "api_key": this.apiKey,
+      "id": collegeId
     };
     const url = this.linkFactory(params);
     return this.http.get<SearchResults>(url);

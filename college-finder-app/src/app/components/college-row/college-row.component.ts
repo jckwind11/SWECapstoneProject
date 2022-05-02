@@ -24,13 +24,11 @@ export class CollegeRowComponent implements OnInit {
 
   website = "vt.edu";
 
-  favorited = false;
-
   toggle = false;
 
 
   @Input() school: SchoolSearchResults;
-  @Input() userFavorites: Observable<UserFavorites>;
+  @Input() isFavorite: boolean;
 
   constructor(private favoriteService: FavoritesService) {}
 
@@ -47,12 +45,8 @@ export class CollegeRowComponent implements OnInit {
     this.percentMen = Math.floor(this.school['latest.student.demographics.men'] * 100);
     this.percentWomen = Math.floor(this.school['latest.student.demographics.women'] * 100);
     this.calculatePrice(this.school['latest.cost.avg_net_price.overall']);
-
-    this.userFavorites.subscribe(data => {
-      this.favorited = data.favoriteColleges.includes(`${this.school.id}`);
-      this.toggle = this.favorited;
-    });
     
+    this.toggle = this.isFavorite;
   }
 
   calculatePrice(input?: number) {
@@ -67,19 +61,14 @@ export class CollegeRowComponent implements OnInit {
     }
   }
 
-  async isFavorite() {
-    
-  } 
-
   change() {
     this.toggle = !this.toggle;
+    console.log(this.toggle);
     if(this.toggle) {
       this.favoriteService.addFavorite(`${this.school.id}`);
-      this.favorited = true;
     }
     else {
       this.favoriteService.removeFavorite(`${this.school.id}`);
-      this.favorited = false;
     }
   }
 

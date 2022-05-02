@@ -17,12 +17,11 @@
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div class="button-holder">
-        <!-- <a mat-raised-button class="Visit-Button" id="website" href="{{website}}">Website</a> -->
         <button mat-raised-button class="Visit-Button" id="info" routerLink="/info/{{school.id}}">More Info</button>
     </div>
     <mat-divider [vertical]="true"></mat-divider>
     <div class="button-holder">
-        <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}" class="btn">
+        <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
       <mat-icon>star</mat-icon>
     </button>
     </div>
