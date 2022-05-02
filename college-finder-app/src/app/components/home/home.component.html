@@ -6,7 +6,7 @@
         <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-    <button mat-raised-button class="Search-Button" (click)="search()" *ngIf="isCustom">Search</button>
+    <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
     <div class="student-body-size-area" *ngIf="isCustom">
       <p class="label">Average Campus Size: {{school_size}}k+</p>
       <mat-slider class="slider" thumbLabel [displayWith]="formatLabel" min="0" max="100" step="5" value="50"
@@ -79,5 +79,41 @@
     <h1 *ngIf="!loading && schools.length == 0">No items found for these search criteria.</h1>
     <college-row class="card-item" *ngFor="let school of schools" [school]="school" [userFavorites]="userFavorites">
     </college-row>
+
+    <div *ngIf="numPages > 0">
+      <hr>
+      <ul class="pagination pagination-lg" *ngIf="numPages < 7">
+        <li class="page-item" *ngFor="let i of [].constructor(numPages); let a = index"
+          [ngClass]="currentPage == a ? 'active' : ''">
+          <button class="page-link" (click)="changePage(a)">{{a+1}}</button>
+        </li>
+      </ul>
+      <ul class="pagination pagination-lg" *ngIf="numPages >= 7">
+        <li class="page-item" *ngIf="currentPage > 2">
+          <button class="page-link" (click)="changePage(0)">1</button>
+        </li>
+        <li class="page-item" *ngIf="currentPage > 2">
+          <button class="page-link">...</button>
+        </li>
+        <li class="page-item" *ngIf="currentPage != 0">
+          <button class="page-link" (click)="changePage(currentPage - 1)">{{currentPage}}</button>
+        </li>
+        <li class="page-item active">
+          <button class="page-link" (click)="changePage(currentPage)">{{currentPage + 1}}</button>
+        </li>
+        <li class="page-item" *ngIf="currentPage != (numPages - 1)">
+          <button class="page-link" (click)="changePage(currentPage + 1)">{{currentPage + 2}}</button>
+        </li>
+        <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
+          <button class="page-link">...</button>
+        </li>
+        <li class="page-item" *ngIf="currentPage != (numPages - 1) && currentPage != (numPages - 2)">
+          <button class="page-link" (click)="changePage(numPages - 1)">{{numPages}}</button>
+        </li>
+      </ul>
+    </div>
+
   </div>
+
+
 </div>

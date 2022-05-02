@@ -12,20 +12,28 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  search(size: number, cost: number, state: string) {
+  search(size: number, cost: number, state: string, page: number = 0) {
     const sizeRange: string = (size * 1000) + "..";
     const costRange: string = ".." + (cost * 1000);
     const params = {
       "api_key": this.apiKey,
       "latest.student.size__range": sizeRange,
       "cost.avg_net_price.overall__range": costRange,
-      "school.state": state
+      "page": page
     };
-    if (state.length == 0) {
-      params["school.state"] = null;
+    if (state.length != 0) {
+      params["school.state"] = state;
     }
     const url = this.linkFactory(params);
     console.log(url);
+    return this.http.get<SearchResults>(url);
+  }
+
+  searchAll() {
+    const params = {
+      "api_key": this.apiKey,
+    };
+    const url = this.linkFactory(params);
     return this.http.get<SearchResults>(url);
   }
 

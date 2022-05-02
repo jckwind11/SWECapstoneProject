@@ -15,10 +15,12 @@ export class HomeComponent implements OnInit {
 
   search_mode = "Recommended";
 
-  school_size = 50;
+  school_size = 35;
   school_cost = 30;
   school_state = "";
 
+  numPages = 0;
+  currentPage = 0;
   schools: SchoolSearchResults[] = [];
   userFavorites: Observable<UserFavorites>;
 
@@ -63,10 +65,16 @@ export class HomeComponent implements OnInit {
     return '$' + value + 'k';
   }
 
+  changePage(pageNum: number) {
+    this.currentPage = pageNum;
+    this.search();
+  }
+
   search() {
     this.loading = true;
-    this.searchService.search(this.school_size, this.school_cost, this.school_state).subscribe(
+    this.searchService.search(this.school_size, this.school_cost, this.school_state, this.currentPage).subscribe(
       result => {
+        this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;
         this.schools.sort(function (a, b) {
           return a['latest.cost.avg_net_price.overall'] - b['latest.cost.avg_net_price.overall'];
@@ -78,6 +86,12 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         // this.notifService.showNotif(error.toString(), 'warning');
       });
+  }
+
+  searchButton() {
+    this.currentPage = 0;
+    this.numPages = 0;
+    this.search();
   }
 
 }
