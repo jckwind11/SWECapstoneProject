@@ -3,6 +3,7 @@
     flex-direction: column;
     margin: 2.5%;
     padding: 2%;
+    bottom: 2.5%;
 }
 
 .header {
@@ -31,7 +32,7 @@ img {
 }
 
 .demographic-card {
-    width: 50%;
+    width: 70%;
 }
 
 .demographic-card-content {
@@ -39,6 +40,7 @@ img {
     flex-direction: row;
     vertical-align: middle;
     align-items: center;
+    gap: 5%;
 }
 
 .detail-card-label {

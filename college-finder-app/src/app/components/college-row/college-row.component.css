@@ -67,3 +67,9 @@ h1 {
 #info {
     background-color: green;
 }
+
+img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}

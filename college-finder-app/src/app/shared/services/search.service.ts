@@ -93,7 +93,8 @@ export class SearchService {
     "latest.school.alias",
     "latest.school.state",
     "latest.school.school_url",
-    "latest.student.size",
+    "latest.student.enrollment.undergrad_12_month",
+    "latest.student.enrollment.grad_12_month",
     "latest.student.demographics.men",
     "latest.student.demographics.women",
     "latest.cost.avg_net_price.overall"
@@ -107,16 +108,27 @@ export class SearchService {
     "latest.school.alias",
     "latest.school.state",
     "latest.school.school_url",
-    "latest.student.size",
+    "latest.student.enrollment.undergrad_12_month",
+    "latest.student.enrollment.grad_12_month",
     "latest.student.demographics.men",
     "latest.student.demographics.women",
+    "latest.student.demographics.age_entry",
+    "latest.student.demographics.first_generation",
+    "latest.student.demographics.median_hh_income",
     "latest.cost.avg_net_price.overall",
     "latest.school.price_calculator_url",
-    "latest.school.degree_urbanization",
+    "latest.school.locale",
     "latest.school.degrees_awarded.predominant",
     "latest.school.degrees_awarded.highest",
     "latest.school.ownership",
-    "latest.admissions.admission_rate.overall"
+    "latest.admissions.admission_rate.overall",
+    "latest.school.accreditor",
+    "latest.student.demographics.race_ethnicity",
+    "latest.student.retention_rate.overall.full_time",
+    "latest.cost.tuition.in_state",
+    "latest.cost.tuition.out_of_state",
+    "latest.aid.students_with_any_loan",
+    "latest.aid.loan_principal"
   ]
 
 }
