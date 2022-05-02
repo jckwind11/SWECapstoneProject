@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { RecommendationHandler, SurveyForm } from './survey';
 
 @Injectable({
     providedIn: 'root'
@@ -69,6 +70,12 @@ export class SurveyQuestionHandler {
 
     allQuestions: SurveyQuestion[] = [this.question1, this.question2, this.question3, this.question4, this.question5, this.question6, this.question7, this.question8, this.question9, this.question10, this.question11];
 
+
+    public getRecommendationHandler(surveyData: SurveyForm): RecommendationHandler {
+        let recs: RecommendationHandler = null;
+
+        return recs;
+    }
 }
 
 export interface SurveyQuestion {

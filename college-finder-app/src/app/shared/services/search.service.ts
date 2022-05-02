@@ -58,15 +58,26 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
-  recommended() {
+  recommended(pageNum: number = 0) {
+    
     const params = {
       "api_key": this.apiKey,
-      "latest.student.size__range": "10000..",
-      "cost.avg_net_price.overall__range": "..85000",
-      "school.state": "CA"
+      "page": pageNum,
+      "sort": "latest.school.name",
+      "school.region.id": [1,2,5,6],
+      "school.locale": [11,12,13,21,22,23,31,32,33],
+      "latest.cost.avg_net_price.overall__range": "..18000",
+      "latest.student.size__range": "15000..",
+      "latest.school.men_only": 0,
+      "latest.school.women_only": 0,
+      "school.ownership": [1,2,3],
+      "school.degrees_awarded.predominant": [3,2,1],
+      "latest.admissions.sat_scores.average.overall__range": "..1300"
     };
     const url = this.linkFactory(params);
+    console.log(url);
     return this.http.get<SearchResults>(url);
+    // https://api.data.gov/ed/collegescorecard/v1/schools?api_key=yAZ3JaZzDbjzTLPrdXmazvRcHrHqYDXbbdRFbvka&page=1&sort=latest.school.name&school.region.id=1,2,5&school.locale=11,12,13,21,22,23,31,32,33&latest.cost.avg_net_price.overall__range=..18000&latest.student.size__range=5000..15000&latest.school.men_only=0&latest.school.women_only=0&school.ownership=1,2,3&school.degrees_awarded.predominant=3&latest.admissions.sat_scores.average.overall__range=..1300&fields=id,latest.school.zip,latest.school.city,latest.school.name,latest.school.alias,latest.school.state,latest.school.school_url,latest.student.size,latest.student.demographics.men,latest.student.demographics.women,latest.cost.avg_net_price.overall
   }
 
 
