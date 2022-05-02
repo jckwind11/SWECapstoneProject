@@ -1,8 +1,12 @@
 <mat-card class="card">
     <mat-card-content>
-        <div>
-            <h1 class="name">{{fullName}}</h1>
-            <h3 class="location">{{city}}, {{state}}</h3>
+        <div class="header">
+            <div>
+                <h1 class="name">{{fullName}}</h1>
+                <h3 class="location">{{city}}, {{state}}</h3>
+            </div>
+            <span class="example-spacer"></span>
+            <img [src]="img_url" alt="" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
         </div>
         <br>
         <br>
@@ -42,8 +46,8 @@
     <br><br>
     <mat-divider inset></mat-divider>
     <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+        <a mat-button href="{{website}}">School Website</a>
+        <a mat-button href="{{cost_calculator}}">School Cost Calculator</a>
     </mat-card-actions>
     <mat-card-footer *ngIf="loading">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>

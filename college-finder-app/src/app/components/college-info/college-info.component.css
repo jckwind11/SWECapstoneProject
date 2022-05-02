@@ -5,6 +5,21 @@
     padding: 2%;
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    vertical-align: middle;
+    height: 100%;
+    align-items: center;
+}
+
+img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+}
+
 .info-holder {
     display: flex;
     flex-direction: row;
@@ -28,4 +43,8 @@
 .location {
     font-weight: lighter;
     font-size: 1.5vw;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
 }

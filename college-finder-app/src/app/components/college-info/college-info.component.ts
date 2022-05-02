@@ -24,6 +24,10 @@ export class CollegeInfoComponent implements OnInit {
   degree_type = "";
   highest_degree_type = "";
 
+  website = "";
+  cost_calculator = "";
+  img_url = "";
+
   admissions_rate = 0;
 
   loading = false;
@@ -58,6 +62,15 @@ export class CollegeInfoComponent implements OnInit {
     this.zip = this.school['latest.school.zip'];
     this.city = this.school['latest.school.city'];
     this.state = this.school['latest.school.state'];
+    this.website = this.school['latest.school.school_url'];
+    if (!/^https?:\/\//i.test(this.website)) {
+      this.website = 'https://' + this.website;
+    }
+    this.img_url = "https://logo.clearbit.com/" + this.website;
+    this.cost_calculator = this.school['latest.school.price_calculator_url'];
+    if (!/^https?:\/\//i.test(this.cost_calculator)) {
+      this.cost_calculator = 'https://' + this.cost_calculator;
+    }
     switch (this.school['latest.school.ownership']) {
       case 1:
         this.ownernship = "Public University";
