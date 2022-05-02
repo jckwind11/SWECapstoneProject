@@ -1,9 +1,10 @@
 .card {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 2%;
     height: 125px;
     vertical-align: middle;
+    min-width: 50%;
 }
 
 .name {
@@ -21,7 +22,8 @@
 .Visit-Button {
     background-color: #2b6777;
     color: white;
-    font-size: 15px;
+    /* font-size: 15px; */
+    font-size: 0.8vw;
     padding: 10px 30px;
     border-radius: 5px;
     margin: auto 10px;
@@ -38,6 +40,14 @@
     margin-bottom: 5px;
 }
 
+h3 {
+    font-size: 1vw;
+}
+
+h1 {
+    font-size: 1.5vw;
+}
+
 .name-holder {
     display: flex;
     align-items: center;
@@ -46,20 +56,12 @@
     width: 35%;
 }
 
-.btns {
-    padding-top: 2.5%;
-}
-
 .gold {
     color: goldenrod;
 }
 
 .grey {
     color: grey;
-}
-
-#website {
-    background-color: green;
 }
 
 #info {
