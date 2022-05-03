@@ -4,8 +4,9 @@ import { SchoolSearchResults } from 'src/app/shared/models/search/SchoolSearchRe
 import { SearchService } from 'src/app/shared/services/search.service';
 
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
-import { right } from '@popperjs/core';
+import { bottom, right, start, top } from '@popperjs/core';
 
 @Component({
   selector: 'app-college-info',
@@ -266,17 +267,9 @@ export class CollegeInfoComponent implements OnInit {
   // Pie
   public pieChartOptionsGender: ChartConfiguration['options'] = {
     responsive: true,
-    events: ['mousemove', 'mouseout'],
-    hover: { mode: 'index' },
+    events: [],
+    hover: { mode: null },
     plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            let label = context.formattedValue;
-            return " " + label + '%';
-          }
-        }
-      },
       legend: {
         display: true,
         position: right,
@@ -284,6 +277,20 @@ export class CollegeInfoComponent implements OnInit {
       title: {
         display: true,
         text: 'Gender Breakdown'
+      },
+      datalabels: {
+        color: ['rgb(0,0,0)', 'rgb(255,255,255)'],
+        labels: {
+          title: {
+            font: {
+              weight: 'bold',
+              size: 15
+            }
+          },
+        },
+        formatter: (value, _) => {
+          return value + '%';
+        },
       },
     }
   };
@@ -308,7 +315,24 @@ export class CollegeInfoComponent implements OnInit {
       title: {
         display: true,
         text: 'Race Breakdown'
-      }
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'start',
+        offset: 10,
+        color: 'rgb(0,0,0)',
+        labels: {
+          title: {
+            font: {
+              weight: 'bold',
+              size: 15
+            }
+          },
+        },
+        formatter: (value, _) => {
+          return value + '%';
+        },
+      },
     }
   };
 
@@ -331,5 +355,6 @@ export class CollegeInfoComponent implements OnInit {
   };
 
   public pieChartType: ChartType = 'pie';
+  public pieChartPlugins = [DatalabelsPlugin];
 
 }
