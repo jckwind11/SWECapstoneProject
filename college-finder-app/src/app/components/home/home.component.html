@@ -10,6 +10,15 @@
     <div *ngIf="recommendationsError != '' && !isCustom">
       <p>{{recommendationsError}}</p>
     </div>
+    <div *ngIf="recommendationsError == '' && !isCustom && recommendationsStrings.length > 0">
+      <h3>Searching for colleges with the following criteria:</h3>
+      <br>
+      <div *ngFor="let recString of recommendationsStrings; let x = index">
+        {{recString}}
+        <br>
+        <br>
+      </div>
+    </div>
     <button mat-raised-button class="Search-Button" (click)="searchButton()" *ngIf="isCustom">Search</button>
     <div class="student-body-size-area" *ngIf="isCustom">
       <p class="label">Average Campus Size: {{school_size}}k+</p>

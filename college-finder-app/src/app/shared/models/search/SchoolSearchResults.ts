@@ -10,6 +10,7 @@ export interface SchoolSearchResults {
     "latest.school.price_calculator_url"?: string;
     "latest.school.locale"?: number;
     "latest.school.ownership"?: number;
+    "latest.student.size"?: number;
     "latest.school.degrees_awarded.predominant"?: number;
     "latest.school.degrees_awarded.highest"?: number;
     "latest.student.enrollment.undergrad_12_month"?: number;

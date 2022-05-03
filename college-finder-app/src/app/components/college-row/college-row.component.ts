@@ -38,7 +38,8 @@ export class CollegeRowComponent implements OnInit {
     this.zip = this.school['latest.school.zip'];
     this.city = this.school['latest.school.city'];
     this.state = this.school['latest.school.state'];
-    this.size = this.school['latest.student.enrollment.undergrad_12_month'] + this.school['latest.student.enrollment.grad_12_month'];
+    //this.size = this.school['latest.student.enrollment.undergrad_12_month'] + this.school['latest.student.enrollment.grad_12_month'];
+    this.size = this.school['latest.student.size'];
     this.website = this.school['latest.school.school_url'];
     if (!/^https?:\/\//i.test(this.website)) {
       this.website = 'https://' + this.website;

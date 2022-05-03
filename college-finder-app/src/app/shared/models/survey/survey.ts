@@ -21,7 +21,7 @@ export interface SurveyForm {
     question4,
     question5,
     question6,
-    question7,
+    question7: number,
     question8,
     question9,
     question10,
@@ -30,13 +30,22 @@ export interface SurveyForm {
 
 export interface RecommendationHandler {
     regionIds: number[],
+    regionIdsString?: string,
     localeIds: number[],
+    localeIdsString?: string,
     costRange: string,
+    costRangeString?: string,
     studentSizeRange: string,
+    studentSizeString?: string,
     menOnly: number,
     womenOnly: number,
+    schoolTypeString?: string,
     ownershipIds: number[],
+    ownershipString?: string,
     degreeIds: number[],
+    degreeIdsString?: string,
     satScoreRange?: number,
-    actScoreRange?: number
+    satScoreString?: string,
+    actScoreRange?: number,
+    actScoreString?: string
 }

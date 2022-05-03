@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
 
   private recommendations: RecommendationHandler;
   recommendationsError = '';
+  recommendationsStrings: string[] = []
 
   loading = false;
 
@@ -108,13 +109,27 @@ export class HomeComponent implements OnInit {
     }
 
     this.loading = true;
+
+    // Recs Strings
+    if (this.recommendations.regionIdsString != null) this.recommendationsStrings.push(this.recommendations.regionIdsString);
+    if (this.recommendations.localeIdsString != null) this.recommendationsStrings.push(this.recommendations.localeIdsString);
+    if (this.recommendations.costRangeString != null) this.recommendationsStrings.push(this.recommendations.costRangeString);
+    if (this.recommendations.studentSizeString != null) this.recommendationsStrings.push(this.recommendations.studentSizeString);
+    if (this.recommendations.schoolTypeString != null) this.recommendationsStrings.push(this.recommendations.schoolTypeString);
+    if (this.recommendations.ownershipString != null) this.recommendationsStrings.push(this.recommendations.ownershipString);
+    if (this.recommendations.degreeIdsString != null) this.recommendationsStrings.push(this.recommendations.degreeIdsString);
+    if (this.recommendations.satScoreString != null) this.recommendationsStrings.push(this.recommendations.satScoreString);
+    if (this.recommendations.actScoreString != null) this.recommendationsStrings.push(this.recommendations.actScoreString);
+    
+    
     this.searchService.recommended(this.recommendations, this.currentPage).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;
-        // this.schools.sort(function (a, b) {
-        //   return a['latest.cost.avg_net_price.overall'] - b['latest.cost.avg_net_price.overall'];
-        // });
+        if (this.recommendations.studentSizeRange == 'FILTER') {
+          console.log('test filter')
+          this.schools = this.schools.filter(this.filterSchoolSize);
+        }
         this.loading = false;
       },
       error => {
@@ -122,6 +137,13 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         // this.notifService.showNotif(error.toString(), 'warning');
       });
+  }
+
+  filterSchoolSize(item: SchoolSearchResults) {
+    if (item['latest.student.size'] < 5000 || item['latest.student.size'] > 15000) {
+      return true;
+    }
+    return false;
   }
 
   searchCustom() {

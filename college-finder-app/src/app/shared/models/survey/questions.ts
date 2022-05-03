@@ -74,80 +74,100 @@ export class SurveyQuestionHandler {
     public getRecommendationHandler(surveyData: SurveyForm): RecommendationHandler {
         // RegionIds
         let regionIds: number[] = [];
-        if (surveyData.question1_0) regionIds.push(1);
-        if (surveyData.question1_1) regionIds.push(2);
-        if (surveyData.question1_2) regionIds.push(3);
-        if (surveyData.question1_3) regionIds.push(4);
-        if (surveyData.question1_4) regionIds.push(5);
-        if (surveyData.question1_5) regionIds.push(6);
-        if (surveyData.question1_6) regionIds.push(7);
-        if (surveyData.question1_7) regionIds.push(8);
+        let regionIdsString: string = 'In the regions of: ';
+        if (surveyData.question1_0) {regionIds.push(1); regionIdsString += 'New England | ';}
+        if (surveyData.question1_1) {regionIds.push(2); regionIdsString += 'Mid East | ';}
+        if (surveyData.question1_2) {regionIds.push(3); regionIdsString += 'Great Lakes | ';}
+        if (surveyData.question1_3) {regionIds.push(4); regionIdsString += 'Plains | ';}
+        if (surveyData.question1_4) {regionIds.push(5); regionIdsString += 'Southeast | ';}
+        if (surveyData.question1_5) {regionIds.push(6); regionIdsString += 'Southwest | ';}
+        if (surveyData.question1_6) {regionIds.push(7); regionIdsString += 'Rocky Mountains | ';}
+        if (surveyData.question1_7) {regionIds.push(8); regionIdsString += 'Far West | ';}
+        if (surveyData.question1_8) {regionIds.push(9); regionIdsString += 'Outlying Areas | ';}
+
+        regionIdsString = regionIdsString.slice(0, -2).split(' | ').join(', ');
 
         // LocaleIds
         let localeIds: number[] = [];
-        if (surveyData.question2_0) localeIds = [...localeIds, 11, 12, 13];
-        if (surveyData.question2_1) localeIds = [...localeIds, 21, 22, 23];
-        if (surveyData.question2_2) localeIds = [...localeIds, 31, 32, 33];
-        if (surveyData.question2_3) localeIds = [...localeIds, 41, 42, 43];
+        let localeIdsString: string = 'In localities of: ';
+        if (surveyData.question2_0) {localeIds = [...localeIds, 11, 12, 13]; localeIdsString += 'City | ';}
+        if (surveyData.question2_1) {localeIds = [...localeIds, 21, 22, 23]; localeIdsString += 'Suburb | ';}
+        if (surveyData.question2_2) {localeIds = [...localeIds, 31, 32, 33]; localeIdsString += 'Town | ';}
+        if (surveyData.question2_3) {localeIds = [...localeIds, 41, 42, 43]; localeIdsString += 'Rurual | ';}
+
+        localeIdsString = localeIdsString.slice(0, -2).split(' | ').join(', ');
         
         // Cost Range
         const costRange = `..${surveyData.question7}`;
+        const costRangeString = `Costing less than $${surveyData.question7.toLocaleString("en-US")} per year`
 
         // Student Size Range
         let min = 0;
         let max = null;
+        let studentSizeString = null;
         if (surveyData.question3_0 && surveyData.question3_1 && surveyData.question3_2) {
             // Do nothing
         }
         else if (surveyData.question3_0 && surveyData.question3_1) {
             max = 15000;
+            studentSizeString = "Student population of less than 15,000";
         }
         else if (surveyData.question3_1 && surveyData.question3_2) {
             min = 5000;
+            studentSizeString = "Student population of more than 5,000";
         }
         else if (surveyData.question3_0 && surveyData.question3_2) {
             // Going to need to filter after query
             min = null;
             max = null;
+            studentSizeString = "Student population of less than 5,000 or student population of more than 15,000";
         }
         else if (surveyData.question3_0) {
             max = 5000;
+            studentSizeString = "Student population of less than 5,000";
         }
         else if (surveyData.question3_1) {
             min = 5000;
             max = 15000;
+            studentSizeString = "Student population of more than 5,000 but less than 15,000";
         }
         else {
             min = 15000;
+            studentSizeString = "Student population of more than 15,000";
         }
 
         let sizeRange: string = '';
-        if (min != null && max != null) {
-            sizeRange = `${min}..${max}`;
+        if (min == null && max == null) {
+            sizeRange = 'FILTER'
         }
         else if (max == null) {
             sizeRange = `${min}..`;
         }
         else {
             sizeRange = 'FILTER'
+            sizeRange = `${min}..${max}`;
         }
 
 
         // Men/Women only
         let menOnly = 0;
         let womenOnly = 0;
+        let schoolTypeString = null;
         if (surveyData.question8 == '2') {
             menOnly = 1;
+            schoolTypeString = "Men-only college";
         }
         else if (surveyData.question8 == '3') {
             womenOnly = 1;
+            schoolTypeString = "Women-only college";
         }
 
         // Ownership Ids
         let ownerShipIds: number[] = [];
-        if (surveyData.question11 == '3') ownerShipIds = [...ownerShipIds, 1, 2, 3];
-        else if (surveyData.question11 == '2') ownerShipIds = [...ownerShipIds, 2, 3];
-        else if (surveyData.question11 == '1') ownerShipIds = [...ownerShipIds, 1];
+        let ownershipString = null;
+        if (surveyData.question11 == '3') {ownerShipIds = [...ownerShipIds, 1, 2, 3]; ownershipString = "Public and private colleges";}
+        else if (surveyData.question11 == '2') {ownerShipIds = [...ownerShipIds, 2, 3]; ownershipString = "Only private colleges";}
+        else if (surveyData.question11 == '1') {ownerShipIds = [...ownerShipIds, 1]; ownershipString = "Only public colleges";}
 
         // Degree Ids
         let degreeIds: number[] = [];
@@ -159,25 +179,37 @@ export class SurveyQuestionHandler {
 
         // SAT/ACT Scores
         let sat = null;
+        let satScoreString = null;
         let act = null;
+        let actScoreString = null;
         if (surveyData.question4 != null && surveyData.question4 != '') {
-            sat = `..${surveyData.question4 + 200}`;
+            sat = `..${surveyData.question4 + 150}`;
+            satScoreString = `Average SAT score of less than ${surveyData.question4 + 150}`;
         }
         if (surveyData.question5 != null && surveyData.question5 != '') {
             act = `..${surveyData.question5 + 4}`;
+            actScoreString = `Average ACT score of less than ${surveyData.question5 + 4}`;
         } 
 
         const recs: RecommendationHandler = {
             regionIds: regionIds,
+            regionIdsString: regionIdsString,
             localeIds: localeIds,
+            localeIdsString: localeIdsString,
             costRange: costRange,
+            costRangeString: costRangeString,
             studentSizeRange: sizeRange,
+            studentSizeString: studentSizeString,
             menOnly: menOnly,
             womenOnly: womenOnly,
+            schoolTypeString: schoolTypeString,
             ownershipIds: ownerShipIds,
+            ownershipString: ownershipString,
             degreeIds: degreeIds,
             satScoreRange: sat,
-            actScoreRange: act
+            satScoreString: satScoreString,
+            actScoreRange: act,
+            actScoreString: actScoreString
         }
         return recs;
     }

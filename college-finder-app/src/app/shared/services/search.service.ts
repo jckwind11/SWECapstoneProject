@@ -60,7 +60,7 @@ export class SearchService {
   }
 
   recommended(recommendations: RecommendationHandler, pageNum: number = 0) {
-    // console.log(recommendations);
+    console.log(recommendations);
     const params = {
       "api_key": this.apiKey,
       "page": pageNum,
@@ -118,7 +118,8 @@ export class SearchService {
     "latest.student.enrollment.grad_12_month",
     "latest.student.demographics.men",
     "latest.student.demographics.women",
-    "latest.cost.avg_net_price.overall"
+    "latest.cost.avg_net_price.overall",
+    "latest.student.size"
   ];
 
   static inDepthFields = [
