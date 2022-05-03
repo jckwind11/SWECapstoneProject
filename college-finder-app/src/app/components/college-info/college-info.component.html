@@ -56,11 +56,11 @@
                     </div>
                     <span class="example-spacer"></span>
                     <div class="chart">
-                        <canvas baseChart [data]="pieChartDataGender" type="pie" [options]="pieChartOptionsGender">
+                        <canvas baseChart [data]="pieChartDataGender" type="pie" [options]="pieChartOptionsGender" [plugins]="pieChartPlugins">
                         </canvas>
                     </div>
                     <div class="chart">
-                        <canvas baseChart [data]="pieChartDataRace" type="pie" [options]="pieChartOptionsRace">
+                        <canvas baseChart [data]="pieChartDataRace" type="pie" [options]="pieChartOptionsRace" [plugins]="pieChartPlugins">
                         </canvas>
                     </div>
                 </mat-card-content>
