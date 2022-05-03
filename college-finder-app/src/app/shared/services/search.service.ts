@@ -78,7 +78,7 @@ export class SearchService {
       params["latest.admissions.sat_scores.average.overall__range"] = recommendations.satScoreRange;
     }
     if (recommendations.actScoreRange != null) {
-      params["latest.admissions.act_scores.midpoint.cumulative"] = recommendations.actScoreRange;
+      params["latest.admissions.act_scores.midpoint.cumulative__range"] = recommendations.actScoreRange;
     }
     if (recommendations.studentSizeRange != 'FILTER') {
       params["latest.student.size__range"] = recommendations.studentSizeRange;
