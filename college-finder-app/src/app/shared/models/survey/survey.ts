@@ -37,6 +37,6 @@ export interface RecommendationHandler {
     womenOnly: number,
     ownershipIds: number[],
     degreeIds: number[],
-    satScore?: number,
-    actScore?: number
+    satScoreRange?: number,
+    actScoreRange?: number
 }

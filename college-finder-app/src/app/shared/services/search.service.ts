@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { SearchResults } from '../models/search/SearchResults';
+import { RecommendationHandler } from '../models/survey/survey';
 
 @Injectable({
   providedIn: 'root'
@@ -58,21 +59,21 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
-  recommended(pageNum: number = 0) {
-    
+  recommended(recommendations: RecommendationHandler, pageNum: number = 0) {
+    console.log(recommendations);
     const params = {
       "api_key": this.apiKey,
       "page": pageNum,
       "sort": "latest.school.name",
-      "school.region.id": [1,2,5,6],
-      "school.locale": [11,12,13,21,22,23,31,32,33],
-      "latest.cost.avg_net_price.overall__range": "..18000",
-      "latest.student.size__range": "15000..",
-      "latest.school.men_only": 0,
-      "latest.school.women_only": 0,
-      "school.ownership": [1,2,3],
-      "school.degrees_awarded.predominant": [3,2,1],
-      "latest.admissions.sat_scores.average.overall__range": "..1300"
+      "school.region.id": recommendations.regionIds,
+      "school.locale": recommendations.localeIds,
+      "latest.cost.avg_net_price.overall__range": recommendations.costRange,
+      "latest.student.size__range": recommendations.studentSizeRange,
+      "latest.school.men_only": recommendations.menOnly,
+      "latest.school.women_only": recommendations.womenOnly,
+      "school.ownership": recommendations.ownershipIds,
+      "school.degrees_awarded.predominant": recommendations.degreeIds,
+      "latest.admissions.sat_scores.average.overall__range": recommendations.satScoreRange
     };
     const url = this.linkFactory(params);
     console.log(url);

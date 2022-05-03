@@ -6,6 +6,9 @@ import { FavoritesService } from 'src/app/shared/services/favorites.service';
 import { Observable } from 'rxjs';
 import { UserFavorites } from 'src/app/shared/models/favorite/favorite';
 import { environment } from 'src/environments/environment';
+import { RecommendationHandler, SurveyForm } from 'src/app/shared/models/survey/survey';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { SurveyQuestionHandler } from 'src/app/shared/models/survey/questions';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +30,16 @@ export class HomeComponent implements OnInit {
   schools: SchoolSearchResults[] = [];
   favorites: String[] = [];
 
+  private recommendations: RecommendationHandler;
+
   loading = false;
 
   constructor(
     public authService: AuthService,
     public searchService: SearchService,
-    public favoriteService: FavoritesService
+    public favoriteService: FavoritesService,
+    public firestore: AngularFirestore,
+    private surveyQuestionHandler: SurveyQuestionHandler
     ) {
 
   }
@@ -46,7 +53,17 @@ export class HomeComponent implements OnInit {
       error => {
         console.log(error);
       });
-    this.searchRecommended();
+
+    // Load user survey data for recommendations
+    const doc = this.firestore.doc<any>('surveys/' + this.authService.currentUserValue.uid);
+    doc.valueChanges().subscribe( data => {
+      if (data != null) {
+        const formData: SurveyForm = data;
+        this.recommendations = this.surveyQuestionHandler.getRecommendationHandler(formData);
+
+        this.searchRecommended();
+      }
+    })
   }
 
   get isCustom(): boolean {
@@ -79,7 +96,7 @@ export class HomeComponent implements OnInit {
 
   searchRecommended() {
     this.loading = true;
-    this.searchService.recommended(this.currentPage).subscribe(
+    this.searchService.recommended(this.recommendations, this.currentPage).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;

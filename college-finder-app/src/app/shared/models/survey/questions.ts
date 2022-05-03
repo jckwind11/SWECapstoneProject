@@ -72,8 +72,113 @@ export class SurveyQuestionHandler {
 
 
     public getRecommendationHandler(surveyData: SurveyForm): RecommendationHandler {
-        let recs: RecommendationHandler = null;
+        // RegionIds
+        let regionIds: number[] = [];
+        if (surveyData.question1_0) regionIds.push(1);
+        if (surveyData.question1_1) regionIds.push(2);
+        if (surveyData.question1_2) regionIds.push(3);
+        if (surveyData.question1_3) regionIds.push(4);
+        if (surveyData.question1_4) regionIds.push(5);
+        if (surveyData.question1_5) regionIds.push(6);
+        if (surveyData.question1_6) regionIds.push(7);
+        if (surveyData.question1_7) regionIds.push(8);
 
+        // LocaleIds
+        let localeIds: number[] = [];
+        if (surveyData.question2_0) localeIds = [...localeIds, 11, 12, 13];
+        if (surveyData.question2_1) localeIds = [...localeIds, 21, 22, 23];
+        if (surveyData.question2_2) localeIds = [...localeIds, 31, 32, 33];
+        if (surveyData.question2_3) localeIds = [...localeIds, 41, 42, 43];
+        
+        // Cost Range
+        const costRange = `..${surveyData.question7}`;
+
+        // Student Size Range
+        let min = 0;
+        let max = null;
+        if (surveyData.question3_0 && surveyData.question3_1 && surveyData.question3_2) {
+            // Do nothing
+        }
+        else if (surveyData.question3_0 && surveyData.question3_1) {
+            max = 15000;
+        }
+        else if (surveyData.question3_1 && surveyData.question3_2) {
+            min = 5000;
+        }
+        else if (surveyData.question3_0 && surveyData.question3_2) {
+            // Going to need to filter after query
+            min = null;
+            max = null;
+        }
+        else if (surveyData.question3_0) {
+            max = 5000;
+        }
+        else if (surveyData.question3_1) {
+            min = 5000;
+            max = 15000;
+        }
+        else {
+            min = 15000;
+        }
+
+        let sizeRange: string = '';
+        if (min != null && max != null) {
+            sizeRange = `${min}..${max}`;
+        }
+        else if (max == null) {
+            sizeRange = `${min}..`;
+        }
+        else {
+            sizeRange = 'FILTER'
+        }
+
+
+        // Men/Women only
+        let menOnly = 0;
+        let womenOnly = 0;
+        if (surveyData.question8 == '2') {
+            menOnly = 1;
+        }
+        else if (surveyData.question8 == '3') {
+            womenOnly = 1;
+        }
+
+        // Ownership Ids
+        let ownerShipIds: number[] = [];
+        if (surveyData.question11 == '3') ownerShipIds = [...ownerShipIds, 1, 2, 3];
+        else if (surveyData.question11 == '2') ownerShipIds = [...ownerShipIds, 2, 3];
+        else if (surveyData.question11 == '1') ownerShipIds = [...ownerShipIds, 1];
+
+        // Degree Ids
+        let degreeIds: number[] = [];
+        if (surveyData.question10 == '5') degreeIds = [...degreeIds, 4, 3];
+        else if (surveyData.question10 == '4') degreeIds = [...degreeIds, 3, 2];
+        else if (surveyData.question10 == '3') degreeIds = [...degreeIds, 2];
+        else if (surveyData.question10 == '2') degreeIds = [...degreeIds, 1];
+        else if (surveyData.question10 == '1') degreeIds = [...degreeIds, 0];
+
+        // SAT/ACT Scores
+        let sat = null;
+        let act = null;
+        if (surveyData.question4 != null) {
+            sat = `..${surveyData.question4 + 200}`;
+        }
+        if (surveyData.question5 != null) {
+            act = `..${surveyData.question5 + 4}`;
+        } 
+
+        const recs: RecommendationHandler = {
+            regionIds: regionIds,
+            localeIds: localeIds,
+            costRange: costRange,
+            studentSizeRange: sizeRange,
+            menOnly: menOnly,
+            womenOnly: womenOnly,
+            ownershipIds: ownerShipIds,
+            degreeIds: degreeIds,
+            satScoreRange: sat,
+            actScoreRange: act
+        }
         return recs;
     }
 }
