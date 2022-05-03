@@ -93,7 +93,7 @@ export class SurveyQuestionHandler {
         if (surveyData.question2_0) {localeIds = [...localeIds, 11, 12, 13]; localeIdsString += 'City | ';}
         if (surveyData.question2_1) {localeIds = [...localeIds, 21, 22, 23]; localeIdsString += 'Suburb | ';}
         if (surveyData.question2_2) {localeIds = [...localeIds, 31, 32, 33]; localeIdsString += 'Town | ';}
-        if (surveyData.question2_3) {localeIds = [...localeIds, 41, 42, 43]; localeIdsString += 'Rurual | ';}
+        if (surveyData.question2_3) {localeIds = [...localeIds, 41, 42, 43]; localeIdsString += 'Rural | ';}
 
         localeIdsString = localeIdsString.slice(0, -2).split(' | ').join(', ');
         
