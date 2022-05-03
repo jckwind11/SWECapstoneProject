@@ -1,29 +1,31 @@
 <mat-card class="card">
-    <img [src]="img_url" onerror="this.src='../../assets/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png'">
-    <div class="name-holder">
-        <div class="name">
-            <h3 class="location">{{city}} {{state}}</h3>
-            <h1>{{fullName}}</h1>
-        </div>
+  <img [src]="img_url" onerror="this.src='../../assets/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png'">
+  <div class="name-holder">
+    <div class="name">
+      <h3 class="location">{{city}}, {{state}}</h3>
+      <h1>{{fullName}}</h1>
     </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div class="info">
-        <h3>Average Cost</h3>
-        <h1>{{price}}</h1>
-    </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div class="info">
-        <h3>{{percentMen}}% Men, {{percentWomen}}% Women</h3>
-        <h1>{{size.toLocaleString()}} Students</h1>
-    </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div class="button-holder">
-        <button mat-raised-button class="Visit-Button" id="info" routerLink="/info/{{school.id}}" [queryParams]="{name: school['latest.school.name'], city: school['latest.school.city'],state: school['latest.school.state'], toggle: toggle }">More Info</button>
-    </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div class="button-holder">
-        <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div class="info">
+    <h3>Average Cost</h3>
+    <h1>{{price}}</h1>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div class="info">
+    <h3>{{percentMen}}% Men, {{percentWomen}}% Women</h3>
+    <h1>{{size.toLocaleString()}} Students</h1>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div class="button-holder">
+    <button mat-raised-button class="Visit-Button" id="info" routerLink="/info/{{school.id}}"
+      [queryParams]="{name: school['latest.school.name'], city: school['latest.school.city'],state: school['latest.school.state'], toggle: toggle }">More
+      Info</button>
+  </div>
+  <mat-divider [vertical]="true"></mat-divider>
+  <div class="button-holder">
+    <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
       <mat-icon>star</mat-icon>
     </button>
-    </div>
+  </div>
 </mat-card>

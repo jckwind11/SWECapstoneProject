@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   apiKey = environment.collegeAPIkey;
   search_mode = "Recommended";
+  sort_by = "latest.school.name";
 
   school_name: String = "";
   school_size = 35;
@@ -111,6 +112,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  sortChange() {
+    if (this.search_mode === 'Recommended') {
+      this.searchRecommended();
+    }
+    else {
+      this.searchCustom();
+    }
+  }
+
   searchRecommended() {
     if (this.recommendations == null) {
       this.schools = []; 
@@ -121,7 +131,7 @@ export class HomeComponent implements OnInit {
 
     this.loading = true;
     
-    this.searchService.recommended(this.recommendations, this.currentPage).subscribe(
+    this.searchService.recommended(this.recommendations, this.currentPage, this.sort_by).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;
@@ -147,7 +157,7 @@ export class HomeComponent implements OnInit {
 
   searchCustom() {
     this.loading = true;
-    this.searchService.search(this.school_name, this.school_size, this.school_cost, this.school_state, this.currentPage).subscribe(
+    this.searchService.search(this.school_name, this.school_size, this.school_cost, this.school_state, this.currentPage, this.sort_by).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;

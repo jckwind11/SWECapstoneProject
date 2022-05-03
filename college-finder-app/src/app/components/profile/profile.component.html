@@ -1,17 +1,14 @@
 <body>
 
   <div class="container">
+    <div class="survey">
+      <button type="submit" class="btn btn-outline-primary" routerLink="/survey">My Survey</button>
+    </div>
     <div class="row">
-      <div class="col-md-6">
-
+      <div class="col-md-9">
         <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
           Profile Updated!
         </div>
-
-        <div class="survey">
-          <button type="submit" class="btn btn-dark" routerLink="/survey">My Survey</button>
-        </div>
-
         <div class="card">
           <h2 class="card-header">Profile</h2>
           <div class="card-body">
@@ -45,6 +42,22 @@
                 <button type="submit" class="btn btn-secondary">Save</button>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <h2 class="card-header">Account Management</h2>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <button class="btn btn-secondary" type="button">Reset Password</button>
+            </div>
+            <br>
+            <hr>
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger" type="button">Delete Account</button>
+            </div>
           </div>
         </div>
       </div>
