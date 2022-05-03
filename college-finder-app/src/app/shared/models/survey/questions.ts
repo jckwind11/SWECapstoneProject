@@ -152,7 +152,7 @@ export class SurveyQuestionHandler {
         // Degree Ids
         let degreeIds: number[] = [];
         if (surveyData.question10 == '5') degreeIds = [...degreeIds, 4, 3];
-        else if (surveyData.question10 == '4') degreeIds = [...degreeIds, 3, 2];
+        else if (surveyData.question10 == '4') degreeIds = [...degreeIds, 3];
         else if (surveyData.question10 == '3') degreeIds = [...degreeIds, 2];
         else if (surveyData.question10 == '2') degreeIds = [...degreeIds, 1];
         else if (surveyData.question10 == '1') degreeIds = [...degreeIds, 0];
@@ -160,10 +160,10 @@ export class SurveyQuestionHandler {
         // SAT/ACT Scores
         let sat = null;
         let act = null;
-        if (surveyData.question4 != null) {
+        if (surveyData.question4 != null && surveyData.question4 != '') {
             sat = `..${surveyData.question4 + 200}`;
         }
-        if (surveyData.question5 != null) {
+        if (surveyData.question5 != null && surveyData.question5 != '') {
             act = `..${surveyData.question5 + 4}`;
         } 
 

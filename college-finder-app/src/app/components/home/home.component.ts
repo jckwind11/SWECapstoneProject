@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   favorites: String[] = [];
 
   private recommendations: RecommendationHandler;
+  recommendationsError = '';
 
   loading = false;
 
@@ -62,6 +63,10 @@ export class HomeComponent implements OnInit {
         this.recommendations = this.surveyQuestionHandler.getRecommendationHandler(formData);
 
         this.searchRecommended();
+      }
+      else {
+        this.recommendationsError = "Pleae fill out the user survey in Profile to get recommendations";
+        this.loading = false;
       }
     })
   }
@@ -95,6 +100,13 @@ export class HomeComponent implements OnInit {
   }
 
   searchRecommended() {
+    if (this.recommendations == null) {
+      this.schools = []; 
+      this.numPages = 0;
+      this.currentPage = 0;
+      return
+    }
+
     this.loading = true;
     this.searchService.recommended(this.recommendations, this.currentPage).subscribe(
       result => {
