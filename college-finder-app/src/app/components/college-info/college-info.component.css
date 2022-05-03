@@ -1,70 +1,71 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    margin: 2.5%;
-    padding: 2%;
-    bottom: 2.5%;
+  display: flex;
+  flex-direction: column;
+  margin: 2.5%;
+  padding: 2%;
+  bottom: 2.5%;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
-    height: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  height: 100%;
+  align-items: center;
 }
 
-img {
-    width: 128px;
-    height: 128px;
-    border-radius: 50%;
+.logo {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  float: right;
 }
 
 .info-holder {
-    display: flex;
-    flex-direction: row;
-    gap: 1%;
-    vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+  gap: 1%;
+  vertical-align: middle;
 }
 
 .detail-card {
-    width: 20%;
+  width: 20%;
 }
 
 .demographic-card {
-    width: 70%;
+  width: 70%;
 }
 
 .demographic-card-content {
-    display: flex;
-    flex-direction: row;
-    vertical-align: middle;
-    align-items: center;
-    gap: 5%;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  align-items: center;
+  gap: 5%;
 }
 
 .detail-card-label {
-    font-size: 1.75vh;
+  font-size: 1.75vh;
 }
 
 .name {
-    font-weight: bold;
-    font-size: 2vw;
+  font-weight: bold;
+  font-size: 2vw;
 }
 
 .location {
-    font-weight: lighter;
-    font-size: 1.5vw;
+  font-weight: lighter;
+  font-size: 1.5vw;
 }
 
 .example-spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .gold {
-    color: goldenrod;
+  color: goldenrod;
 }
 
 .grey {
-    color: grey;
+  color: grey;
 }

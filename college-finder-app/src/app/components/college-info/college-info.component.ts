@@ -7,6 +7,7 @@ import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
 import { bottom, right, start, top } from '@popperjs/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-college-info',
@@ -18,6 +19,8 @@ export class CollegeInfoComponent implements OnInit {
   private id: string;
 
   private school: SchoolSearchResults;
+
+  campusImageUrl: '';
 
   // meta info
   fullName: string = '';
@@ -56,7 +59,7 @@ export class CollegeInfoComponent implements OnInit {
   loading = false;
   toggle = false;
 
-  constructor(private route: ActivatedRoute, public searchService: SearchService, private favoriteService: FavoritesService) {
+  constructor(private route: ActivatedRoute, public searchService: SearchService, private favoriteService: FavoritesService, private http: HttpClient) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.fullName = this.route.snapshot.queryParamMap.get('name');
     this.city = this.route.snapshot.queryParamMap.get('city');
@@ -125,7 +128,14 @@ export class CollegeInfoComponent implements OnInit {
     if (!/^https?:\/\//i.test(this.cost_calculator)) {
       this.cost_calculator = 'https://' + this.cost_calculator;
     }
-    this.img_url = "https://logo.clearbit.com/" + this.website;
+
+    const college_id: string = this.fullName.toLowerCase().split(' ').join('-');
+    console.log(college_id);
+    this.http.get<any>(`https://api.collegeai.com/v1/api/college/info?api_key=38b86f07b5abc3f64c98eb82b&college_ids=${college_id}&info_ids=campus_image,logo_image`).subscribe(data => {
+      if (data["colleges"][0]["campusImage"] != null) this.campusImageUrl = data["colleges"][0]["campusImage"];
+      if (data["colleges"][0]["logoImage"] != null) this.img_url = data["colleges"][0]["logoImage"];
+    })
+    if (this.img_url == "") this.img_url = "https://logo.clearbit.com/" + this.website;
   
     switch (this.school['latest.school.ownership']) {
       case 1:

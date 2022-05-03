@@ -1,82 +1,90 @@
 <mat-card class="card">
-    <mat-card-content>
-        <div class="header">
-            <div>
-                <h1 class="name">{{fullName}}</h1>
-                <h3 class="location">{{city}}, {{state}}</h3>
-            </div>
-            <span class="example-spacer"></span>
-            <img [src]="img_url" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}" onerror="this.src='../../assets/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png'">
-        </div>
-        <br><br>
-        <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
-            <mat-card class="detail-card">
-                <mat-card-title>General Info</mat-card-title>
-                <br>
-                <mat-card-content>
-                    <h4 class="detail-card-label"><strong>University Type: </strong>{{ownernship}}</h4>
-                    <h4 class="detail-card-label"><strong>Location: </strong>{{city}} {{state}}, {{zip}}</h4>
-                    <h4 class="detail-card-label"><strong>Area: </strong>{{area_type}} </h4>
-                    <h4 class="detail-card-label"><strong>Retention Rate: </strong>{{retention_rate}}</h4>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="detail-card">
-                <mat-card-title>Academic Info</mat-card-title>
-                <br>
-                <mat-card-content>
-                    <h4 class="detail-card-label"><strong>Primary Program: </strong>{{degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Highest Program: </strong>{{highest_degree_type}}</h4>
-                    <h4 class="detail-card-label"><strong>Admissions Rate: </strong>{{admissions_rate}}</h4>
-                    <h4 class="detail-card-label"><strong>Accreditor: </strong>{{accreditor}}</h4>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="detail-card">
-                <mat-card-title>Cost & Aid Info</mat-card-title>
-                <br>
-                <mat-card-content>
-                    <h4 class="detail-card-label"><strong>In-state Tuition: </strong>{{in_state_price}}</h4>
-                    <h4 class="detail-card-label"><strong>Out-of-state Tuition: </strong>{{out_state_price}}</h4>
-                    <h4 class="detail-card-label"><strong>Students with loan: </strong>{{students_with_loan}}</h4>
-                    <h4 class="detail-card-label"><strong>Average Debt: </strong>{{average_debt}}</h4>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        <br><br>
-        <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
-            <mat-card class="demographic-card">
-                <mat-card-content class="demographic-card-content">
-                    <div>
-                        <mat-card-title>Demographic Info</mat-card-title>
-                        <br>
-                        <h4 class="detail-card-label"><strong>Undergraduate Student Population: </strong>{{undergrad_size.toLocaleString()}}</h4>
-                        <h4 class="detail-card-label"><strong>Graduate Student Population: </strong>{{grad_size.toLocaleString()}}</h4>
-                        <h4 class="detail-card-label"><strong>Average Age of Entry: </strong>{{average_age}}</h4>
-                        <h4 class="detail-card-label"><strong>First Generation Student: </strong>{{percentFirstGen}}</h4>
-                        <h4 class="detail-card-label"><strong>Average House Hold Income: </strong>{{average_hh_income}}</h4>
-                    </div>
-                    <span class="example-spacer"></span>
-                    <div class="chart">
-                        <canvas baseChart [data]="pieChartDataGender" type="pie" [options]="pieChartOptionsGender" [plugins]="pieChartPlugins">
-                        </canvas>
-                    </div>
-                    <div class="chart">
-                        <canvas baseChart [data]="pieChartDataRace" type="pie" [options]="pieChartOptionsRace" [plugins]="pieChartPlugins">
-                        </canvas>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </mat-card-content>
+  <mat-card-content>
+    <img [src]="img_url" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}" class="logo"
+      onerror="this.src='../../assets/1024px-Round_Landmark_School_Icon_-_Transparent.svg.png'">
+    <div class="header">
+      <div>
+        <h1 class="name">{{fullName}}</h1>
+        <h3 class="location">{{city}}, {{state}}</h3>
+        <img [src]="campusImageUrl" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
+          *ngIf="campusImageUrl != ''">
+      </div>
+      <span class="example-spacer"></span>
+
+    </div>
     <br><br>
-    <mat-divider inset></mat-divider>
-    <mat-card-actions [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
-        <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
-            <mat-icon>star</mat-icon>
-          </button>
-        <a mat-button href="{{website}}">School Website</a>
-        <a mat-button href="{{cost_calculator}}">School Cost Calculator</a>
-    </mat-card-actions>
-    <mat-card-footer [ngStyle]="{'visibility': loading ? 'visible' : 'hidden'}">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </mat-card-footer>
+    <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
+      <mat-card class="detail-card">
+        <mat-card-title>General Info</mat-card-title>
+        <br>
+        <mat-card-content>
+          <h4 class="detail-card-label"><strong>University Type: </strong>{{ownernship}}</h4>
+          <h4 class="detail-card-label"><strong>Location: </strong>{{city}} {{state}}, {{zip}}</h4>
+          <h4 class="detail-card-label"><strong>Area: </strong>{{area_type}} </h4>
+          <h4 class="detail-card-label"><strong>Retention Rate: </strong>{{retention_rate}}</h4>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="detail-card">
+        <mat-card-title>Academic Info</mat-card-title>
+        <br>
+        <mat-card-content>
+          <h4 class="detail-card-label"><strong>Primary Program: </strong>{{degree_type}}</h4>
+          <h4 class="detail-card-label"><strong>Highest Program: </strong>{{highest_degree_type}}</h4>
+          <h4 class="detail-card-label"><strong>Admissions Rate: </strong>{{admissions_rate}}</h4>
+          <h4 class="detail-card-label"><strong>Accreditor: </strong>{{accreditor}}</h4>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="detail-card">
+        <mat-card-title>Cost & Aid Info</mat-card-title>
+        <br>
+        <mat-card-content>
+          <h4 class="detail-card-label"><strong>In-state Tuition: </strong>{{in_state_price}}</h4>
+          <h4 class="detail-card-label"><strong>Out-of-state Tuition: </strong>{{out_state_price}}</h4>
+          <h4 class="detail-card-label"><strong>Students with loan: </strong>{{students_with_loan}}</h4>
+          <h4 class="detail-card-label"><strong>Average Debt: </strong>{{average_debt}}</h4>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <br><br>
+    <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
+      <mat-card class="demographic-card">
+        <mat-card-content class="demographic-card-content">
+          <div>
+            <mat-card-title>Demographic Info</mat-card-title>
+            <br>
+            <h4 class="detail-card-label"><strong>Undergraduate Student Population:
+              </strong>{{undergrad_size.toLocaleString()}}</h4>
+            <h4 class="detail-card-label"><strong>Graduate Student Population: </strong>{{grad_size.toLocaleString()}}
+            </h4>
+            <h4 class="detail-card-label"><strong>Average Age of Entry: </strong>{{average_age}}</h4>
+            <h4 class="detail-card-label"><strong>First Generation Student: </strong>{{percentFirstGen}}</h4>
+            <h4 class="detail-card-label"><strong>Average House Hold Income: </strong>{{average_hh_income}}</h4>
+          </div>
+          <span class="example-spacer"></span>
+          <div class="chart">
+            <canvas baseChart [data]="pieChartDataGender" type="pie" [options]="pieChartOptionsGender"
+              [plugins]="pieChartPlugins">
+            </canvas>
+          </div>
+          <div class="chart">
+            <canvas baseChart [data]="pieChartDataRace" type="pie" [options]="pieChartOptionsRace"
+              [plugins]="pieChartPlugins">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+  <br><br>
+  <mat-divider inset></mat-divider>
+  <mat-card-actions [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
+    <button mat-button (click)="change()" [ngClass]="{'gold': toggle, 'grey': !toggle}">
+      <mat-icon>star</mat-icon>
+    </button>
+    <a mat-button href="{{website}}">School Website</a>
+    <a mat-button href="{{cost_calculator}}">School Cost Calculator</a>
+  </mat-card-actions>
+  <mat-card-footer [ngStyle]="{'visibility': loading ? 'visible' : 'hidden'}">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
 </mat-card>
