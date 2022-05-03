@@ -1,128 +1,133 @@
 <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card">
+        <h2 class="card-header">College Preference Survey</h2>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
+                {{errorMessage}}
+              </div>
+              <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
+                Survey Saved!
+              </div>
+              <form [formGroup]="survey" (ngSubmit)="saveSurvey()">
+                <div *ngFor="let question of allQuestions; let i = index">
+                  <h3>{{i + 1}}) {{question.question}} <span
+                      *ngIf="question.questionType === QuestionType.Checkbox">(Check
+                      all that apply)</span></h3>
 
+                  <!-- Dropdown -->
+                  <div *ngIf="question.questionType === QuestionType.Dropdown && i !== 5">
+                    <div class="col-md-12">
+                      <select name="question{{i+1}}" id="question{{i+1}}" class="form-select"
+                        formControlName="question{{i+1}}">
+                        <option *ngFor="let answerChoice of question.answerChoices; let x = index" value="{{x}}">
+                          {{answerChoice}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
 
-  <div class="card">
-    <h2 class="card-header">College Preference Survey</h2>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md">
-          <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
-            {{errorMessage}}
+                  <!-- State Dropdown -->
+                  <div *ngIf="i === 5">
+                    <div class="col-md-12">
+                      <select name="question6" id="question6" class="form-select" formControlName="question6">
+                        <option value=""></option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District Of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Checkboxes -->
+                  <div *ngIf="question.questionType === QuestionType.Checkbox">
+                    <div class="form-check" *ngFor="let answerChoice of question.answerChoices; let x = index">
+                      <input type="checkbox" class="form-check-input" id="question{{i+1}}_{{x}}"
+                        name="question{{i+1}}_{{x}}" formControlName="question{{i+1}}_{{x}}">
+                      <label for="question{{i+1}}_{{x}}" class="form-check-label">
+                        {{answerChoice}}
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Number -->
+                  <div *ngIf="question.questionType === QuestionType.Number">
+                    <div class="col-md-12">
+                      <input class="form-control" type="number" name="question{{i+1}}"
+                        formControlName="question{{i+1}}">
+                    </div>
+                  </div>
+
+                  <br>
+                </div>
+
+                <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
+                  {{errorMessage}}
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
+                  Survey Saved! <a routerLink="/home">View Recommendations</a>
+                </div>
+                <hr>
+
+                <button type="submit" class="btn btn-secondary">Save</button>
+              </form>
+            </div>
           </div>
-          <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
-            Survey Saved!
-          </div>
-          <form [formGroup]="survey" (ngSubmit)="saveSurvey()">
-            <div *ngFor="let question of allQuestions; let i = index">
-              <h3>{{i + 1}}) {{question.question}} <span *ngIf="question.questionType === QuestionType.Checkbox">(Check
-                  all that apply)</span></h3>
-
-              <!-- Dropdown -->
-              <div *ngIf="question.questionType === QuestionType.Dropdown && i !== 5">
-                <div class="col-md-6">
-                  <select name="question{{i+1}}" id="question{{i+1}}" class="form-select"
-                    formControlName="question{{i+1}}">
-                    <option *ngFor="let answerChoice of question.answerChoices; let x = index" value="{{x}}">
-                      {{answerChoice}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- State Dropdown -->
-              <div *ngIf="i === 5">
-                <div class="col-md-6">
-                  <select name="question6" id="question6" class="form-select" formControlName="question6">
-                    <option value=""></option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                  </select>
-                </div>
-              </div>
-
-              <!-- Checkboxes -->
-              <div *ngIf="question.questionType === QuestionType.Checkbox">
-                <div class="form-check" *ngFor="let answerChoice of question.answerChoices; let x = index">
-                  <input type="checkbox" class="form-check-input" id="question{{i+1}}_{{x}}"
-                    name="question{{i+1}}_{{x}}" formControlName="question{{i+1}}_{{x}}">
-                  <label for="question{{i+1}}_{{x}}" class="form-check-label">
-                    {{answerChoice}}
-                  </label>
-                </div>
-              </div>
-
-              <!-- Number -->
-              <div *ngIf="question.questionType === QuestionType.Number">
-                <div class="col-md-6">
-                  <input class="form-control" type="number" name="question{{i+1}}" formControlName="question{{i+1}}">
-                </div>
-              </div>
-
-              <br>
-            </div>
-
-            <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
-              {{errorMessage}}
-            </div>
-            <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
-              Survey Saved! <a routerLink="/home">View Recommendations</a>
-            </div>
-            <hr>
-
-            <button type="submit" class="btn btn-secondary">Save</button>
-          </form>
         </div>
       </div>
     </div>
   </div>
+
   <br>
 </div>

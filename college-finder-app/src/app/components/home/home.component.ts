@@ -161,10 +161,6 @@ export class HomeComponent implements OnInit {
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
         this.schools = result.results;
-        console.log
-        this.schools.sort(function (a, b) {
-          return a['latest.cost.avg_net_price.overall'] - b['latest.cost.avg_net_price.overall'];
-        });
         this.loading = false;
       },
       error => {
