@@ -60,7 +60,7 @@ export class SearchService {
   }
 
   recommended(recommendations: RecommendationHandler, pageNum: number = 0) {
-    console.log(recommendations);
+    // console.log(recommendations);
     const params = {
       "api_key": this.apiKey,
       "page": pageNum,

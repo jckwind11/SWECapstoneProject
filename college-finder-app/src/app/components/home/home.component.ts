@@ -63,6 +63,17 @@ export class HomeComponent implements OnInit {
         const formData: SurveyForm = data;
         this.recommendations = this.surveyQuestionHandler.getRecommendationHandler(formData);
 
+        // Recs Strings
+        if (this.recommendations.regionIdsString != null) this.recommendationsStrings.push(this.recommendations.regionIdsString);
+        if (this.recommendations.localeIdsString != null) this.recommendationsStrings.push(this.recommendations.localeIdsString);
+        if (this.recommendations.costRangeString != null) this.recommendationsStrings.push(this.recommendations.costRangeString);
+        if (this.recommendations.studentSizeString != null) this.recommendationsStrings.push(this.recommendations.studentSizeString);
+        if (this.recommendations.schoolTypeString != null) this.recommendationsStrings.push(this.recommendations.schoolTypeString);
+        if (this.recommendations.ownershipString != null) this.recommendationsStrings.push(this.recommendations.ownershipString);
+        if (this.recommendations.degreeIdsString != null) this.recommendationsStrings.push(this.recommendations.degreeIdsString);
+        if (this.recommendations.satScoreString != null) this.recommendationsStrings.push(this.recommendations.satScoreString);
+        if (this.recommendations.actScoreString != null) this.recommendationsStrings.push(this.recommendations.actScoreString);
+
         this.searchRecommended();
       }
       else {
@@ -109,18 +120,6 @@ export class HomeComponent implements OnInit {
     }
 
     this.loading = true;
-
-    // Recs Strings
-    if (this.recommendations.regionIdsString != null) this.recommendationsStrings.push(this.recommendations.regionIdsString);
-    if (this.recommendations.localeIdsString != null) this.recommendationsStrings.push(this.recommendations.localeIdsString);
-    if (this.recommendations.costRangeString != null) this.recommendationsStrings.push(this.recommendations.costRangeString);
-    if (this.recommendations.studentSizeString != null) this.recommendationsStrings.push(this.recommendations.studentSizeString);
-    if (this.recommendations.schoolTypeString != null) this.recommendationsStrings.push(this.recommendations.schoolTypeString);
-    if (this.recommendations.ownershipString != null) this.recommendationsStrings.push(this.recommendations.ownershipString);
-    if (this.recommendations.degreeIdsString != null) this.recommendationsStrings.push(this.recommendations.degreeIdsString);
-    if (this.recommendations.satScoreString != null) this.recommendationsStrings.push(this.recommendations.satScoreString);
-    if (this.recommendations.actScoreString != null) this.recommendationsStrings.push(this.recommendations.actScoreString);
-    
     
     this.searchService.recommended(this.recommendations, this.currentPage).subscribe(
       result => {
