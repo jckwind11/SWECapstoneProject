@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms'
 import { ContactService } from 'src/app/contact.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 @Component({
@@ -11,13 +12,20 @@ import { ContactService } from 'src/app/contact.service';
 export class ContactFormComponent implements OnInit {
   FormData: FormGroup;
   updateSuccess: boolean;
-  constructor(private builder: FormBuilder, private contact: ContactService) { }
+
+  userEmail = '';
+  userName = '';
+
+  constructor(private builder: FormBuilder, private contact: ContactService, private auth: AuthService) {
+    this.userEmail = auth.currentUserValue.email;
+    this.userName = `${auth.currentUserValue.data.firstName} ${auth.currentUserValue.data.lastName}`;
+  }
 
   ngOnInit() {
     this.updateSuccess = false;
     this.FormData = this.builder.group({
-      Fullname: new FormControl('', [Validators.required]),
-      Email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
+      Fullname: new FormControl(this.userName, [Validators.required]),
+      Email: new FormControl(this.userEmail, [Validators.compose([Validators.required, Validators.email])]),
       Comment: new FormControl('', [Validators.required])
     });
   }
