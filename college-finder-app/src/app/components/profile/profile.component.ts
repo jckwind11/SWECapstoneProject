@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit {
   updateSuccess: Boolean;
   emailSent: Boolean;
 
+  deleteAccountField = '';
+
   private userDoc: AngularFirestoreDocument<any>;
 
   userData: UserData;
@@ -72,12 +74,10 @@ export class ProfileComponent implements OnInit {
     this.authService.resetPassword2(this.userData.email);
   }
 
-  delete() {
-    let myPassword = prompt("type in your password if you wish to delete your account");
-    
-    //Delete the user account in firebase here
+  deleteAccount() {
+    console.log('deleting account')
 
-    this.logout();
+    this.authService.deleteUserAccount();
   }
 
   logout() {

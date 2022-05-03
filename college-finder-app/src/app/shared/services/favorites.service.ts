@@ -28,9 +28,6 @@ export class FavoritesService {
       if (data != null) {
         this.favoritesArray = data.favoriteColleges;
       }
-      else {
-        doc.set({favoriteColleges: []}, { merge: true });
-      }
     })
   }
 

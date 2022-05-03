@@ -5,6 +5,7 @@ import * as auth from 'firebase/auth';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { deleteField  } from 'firebase/firestore';
 import { BehaviorSubject, Observable, first } from 'rxjs';
 
 @Injectable({
@@ -82,6 +83,10 @@ export class AuthService {
     await userRef.set(userData, { merge: true });
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
+
+    const favDoc = this.firestore.doc<any>(`favorites/${this.currentUserValue.uid}`);
+    favDoc.set({favoriteColleges: []}, { merge: true });
+
     this.router.navigate(['survey']);
   }
 
@@ -107,5 +112,40 @@ export class AuthService {
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+  }
+
+  public async deleteUserAccount() {
+
+    try {
+      // Delete SurveyData
+      const surveyDoc = this.firestore.doc<any>('surveys/' + this.currentUserValue.uid);
+      await surveyDoc.delete();
+
+      // Delete favorites
+      const favoritesDoc = this.firestore.doc<any>('favorites/' + this.currentUserValue.uid);
+      await favoritesDoc.update({
+        favoriteColleges: deleteField()
+      })
+
+      // Need to wait for the above field to delete first
+      setTimeout(() => {
+        favoritesDoc.delete();
+      }, 1000);
+
+      // Delete userData
+      const userDataDoc = this.firestore.doc<any>('users/' + this.currentUserValue.uid);
+      await userDataDoc.delete();
+
+      // Delete User
+      await (await this.auth.currentUser).delete();
+
+      this.signOut();
+
+    } catch (error){
+      console.log('deletion failed');
+      console.log(error ?? '');
+
+    }
+    
   }
 }
