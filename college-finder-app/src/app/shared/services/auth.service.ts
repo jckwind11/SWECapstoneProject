@@ -55,6 +55,10 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
+  public async resetPassword2(passwordResetEmail: string) {
+    await this.auth.sendPasswordResetEmail(passwordResetEmail);
+  }
+
   private async createUserData(newUser: auth.User, firstName: string, lastName: string) {
     const userRef: AngularFirestoreDocument<any> = this.firestore.doc(`users/${newUser.uid}`);
     const userData: UserData = {

@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   form: FormGroup;
 
   updateSuccess: Boolean;
+  emailSent: Boolean;
 
   private userDoc: AngularFirestoreDocument<any>;
 
@@ -40,6 +41,7 @@ export class ProfileComponent implements OnInit {
    
 
     this.updateSuccess = false;
+    this.emailSent = false;
   }
 
   get f(){
@@ -63,6 +65,11 @@ export class ProfileComponent implements OnInit {
 
     this.update(this.userData);
 
+  }
+
+  reset() {
+    this.emailSent = true;
+    this.authService.resetPassword2(this.userData.email);
   }
 
   ngOnInit(): void {

@@ -9,6 +9,9 @@
         <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
           Profile Updated!
         </div>
+        <div class="alert alert-success" role="alert" *ngIf="emailSent">
+          Reset Email Sent!
+        </div>
         <div class="card">
           <h2 class="card-header">Profile</h2>
           <div class="card-body">
@@ -51,7 +54,7 @@
           <h2 class="card-header">Account Management</h2>
           <div class="card-body">
             <div class="d-grid gap-2">
-              <button class="btn btn-secondary" type="button">Reset Password</button>
+              <button class="btn btn-secondary" type="button" (click)="reset()">Reset Password</button>
               <button class="btn btn-info" type="button" routerLink="/contact">Contact Us</button>
             </div>
             <br>
