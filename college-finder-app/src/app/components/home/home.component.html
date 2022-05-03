@@ -2,6 +2,16 @@
 <div class="holder">
   <mat-card class="settings-card">
     <div class="student-body-size-area">
+      <mat-form-field appearance="fill">
+        <mat-label>Sort By</mat-label>
+        <select matNativeControl [(ngModel)]="sort_by" (ngModelChange)="sortChange()">
+          <option value="latest.school.name">School name</option>
+          <option value="latest.student.size">School size</option>
+          <option value="latest.cost.avg_net_price.overall">School cost</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="student-body-size-area">
       <mat-button-toggle-group [(ngModel)]="search_mode" (change)="didChange()">
         <mat-button-toggle value="Recommended">Recommended</mat-button-toggle>
         <mat-button-toggle value="Advanced">Advanced</mat-button-toggle>

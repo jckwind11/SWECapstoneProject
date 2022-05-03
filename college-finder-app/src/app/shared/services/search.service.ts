@@ -13,14 +13,14 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  search(name: String = '', size: number, cost: number, state: string, page: number = 0) {
+  search(name: String = '', size: number, cost: number, state: string, page: number = 0, sortBy: string = "latest.school.name") {
     const sizeRange: string = (size * 1000) + "..";
     const costRange: string = ".." + (cost * 1000);
     const params = {
       "api_key": this.apiKey,
       "latest.student.size__range": sizeRange,
       "cost.avg_net_price.overall__range": costRange,
-      "sort": "latest.cost.avg_net_price.overall",
+      "sort": sortBy,
       "page": page
     };
     if (state.length != 0) {
@@ -59,12 +59,12 @@ export class SearchService {
     return this.http.get<SearchResults>(url);
   }
 
-  recommended(recommendations: RecommendationHandler, pageNum: number = 0) {
+  recommended(recommendations: RecommendationHandler, pageNum: number = 0, sortBy: string = "latest.school.name") {
     // console.log(recommendations);
     const params = {
       "api_key": this.apiKey,
       "page": pageNum,
-      "sort": "latest.school.name",
+      "sort": sortBy,
       "school.region.id": recommendations.regionIds,
       "school.locale": recommendations.localeIds,
       "latest.cost.avg_net_price.overall__range": recommendations.costRange,
