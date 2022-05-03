@@ -30,6 +30,8 @@ import { SurveyComponent } from './components/survey/survey.component';
 import { CollegeRowComponent } from './components/college-row/college-row.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { CollegeInfoComponent } from './components/college-info/college-info.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
+import { ContactService } from './contact.service';
 
 
 
@@ -46,7 +48,8 @@ import { CollegeInfoComponent } from './components/college-info/college-info.com
     SurveyComponent,
     CollegeRowComponent,
     FavoriteComponent,
-    CollegeInfoComponent
+    CollegeInfoComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { CollegeInfoComponent } from './components/college-info/college-info.com
     NgxSliderModule,
     NgChartsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

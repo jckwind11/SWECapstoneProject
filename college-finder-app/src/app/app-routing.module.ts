@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ContentChild, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SplashComponent } from './components/splash/splash.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { FavoriteComponent } from './components/favorite/favorite.component';
 import { CollegeInfoComponent } from './components/college-info/college-info.component';
+import { ContactFormComponent } from './components/contact-form/contact-form.component';
 
 const routes: Routes = [
   { path: '', component: SplashComponent, canActivate: [RedirectIfAuthenticatedGuard] },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard]},
   { path: 'favorite', component: FavoriteComponent, canActivate: [AuthGuard]},
-  { path: 'info/:id', component: CollegeInfoComponent, canActivate: [AuthGuard]}
+  { path: 'info/:id', component: CollegeInfoComponent, canActivate: [AuthGuard]}, 
+  { path: 'contact', component: ContactFormComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
