@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
-import { User } from '../../shared/models/user/user';
-import {Router} from '@angular/router';
 import { UserData } from 'src/app/shared/models/user/userData';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +27,7 @@ export class ProfileComponent implements OnInit {
     private afs: AngularFirestore, 
     public authService: AuthService, 
     private formBuilder: FormBuilder, 
+    private notificationService: NotificationService
     ) { 
 
     this.form = this.formBuilder.group({
@@ -74,9 +73,11 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount() {
-    console.log('deleting account')
-
-    this.authService.deleteUserAccount(this.user_password);
+    try {
+      this.authService.deleteUserAccount(this.user_password);
+    } catch (error) {
+      this.notificationService.showNotif(error, "okay");
+    }
   }
 
   logout() {
@@ -85,7 +86,7 @@ export class ProfileComponent implements OnInit {
       console.log('logged out');
     })
     .catch(error => {
-      console.log(error);
+      this.notificationService.showNotif(error, "okay");
     })
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../shared/services/auth.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     public authService: AuthService, 
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private notificationService: NotificationService) {
       this.form = this.formBuilder.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -34,17 +36,21 @@ export class SignupComponent implements OnInit {
     return this.form.controls;
   }
 
-  createAccount() {
+  async createAccount() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.authService.signUp(
-      this.form.controls.firstName.value, 
-      this.form.controls.lastName.value, 
-      this.form.controls.email.value, 
-      this.form.controls.password.value);
+    try {
+      await this.authService.signUp(
+        this.form.controls.firstName.value, 
+        this.form.controls.lastName.value, 
+        this.form.controls.email.value, 
+        this.form.controls.password.value);
+    } catch (error) {
+      this.notificationService.showNotif(error, "okay");
+    }
   }
 
 }
