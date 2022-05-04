@@ -72,10 +72,11 @@ export class ProfileComponent implements OnInit {
     this.authService.resetPassword2(this.userData.email);
   }
 
-  deleteAccount() {
+  async deleteAccount() {
     try {
-      this.authService.deleteUserAccount(this.user_password);
+      await this.authService.deleteUserAccount(this.user_password);
     } catch (error) {
+      console.log(error);
       this.notificationService.showNotif(error, "okay");
     }
   }

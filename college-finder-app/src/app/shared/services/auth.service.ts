@@ -38,10 +38,10 @@ export class AuthService {
   }
 
   public async signIn(email: string, password: string) {
-      const result = await this.auth.signInWithEmailAndPassword(email, password);
-      localStorage.removeItem('user');
-      await this.getUserData(result.user);
-      this.router.navigate(['home']);
+    const result = await this.auth.signInWithEmailAndPassword(email, password);
+    localStorage.removeItem('user');
+    await this.getUserData(result.user);
+    this.router.navigate(['home']);
   }
 
   public async signOut() {
@@ -116,12 +116,12 @@ export class AuthService {
 
   public async deleteUserAccount(password: string) {
     const currentUser = await this.auth.currentUser;
-      const credential = EmailAuthProvider.credential(
-        currentUser.email,
-        password
-      );
-      await currentUser.reauthenticateWithCredential(credential);
-      await currentUser.delete();
-      this.signOut();
+    const credential = EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
+    await currentUser.reauthenticateWithCredential(credential);
+    await currentUser.delete();
+    this.signOut();
   }
 }
