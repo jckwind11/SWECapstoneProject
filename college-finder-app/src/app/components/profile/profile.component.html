@@ -1,93 +1,86 @@
 <div class="container">
-  <div class="survey">
-    <button type="submit" class="btn btn-outline-primary" routerLink="/survey">My Survey</button>
-  </div>
-  <div class="row">
-    <div class="col-md-9">
-      <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
-        Profile Updated!
-      </div>
-      <div class="alert alert-success" role="alert" *ngIf="emailSent">
-        Reset Email Sent!
-      </div>
-      <div class="card">
-        <h2 class="card-header">Profile</h2>
-        <div class="card-body">
-
-          <form [formGroup]="form" (ngSubmit)="updateAccount()">
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name: </label>
-              <input type="text" class="form-control" id="firstName" name="lastName"
-                value="{{userData.firstName ?? ''}}" disabled>
-            </div>
-
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Last Name: </label>
-              <input type="text" class="form-control" id="lastName" name="lastName" value="{{userData.lastName ?? ''}}"
-                disabled>
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Email: </label>
-              <input type="text" class="form-control" id="email" name="email" value="{{userData.email ?? ''}}" disabled>
-            </div>
-
-            <div class="mb-3">
-              <label for="username" class="form-label">Username: </label>
-              <input type="text" class="form-control" id="username" formControlName="username"
-                value="{{userData.username ?? ''}}">
-            </div>
-
-            <div class="mb-3">
-              <button type="submit" class="btn btn-secondary">Save</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="survey">
+        <button type="submit" class="btn btn-outline-primary" routerLink="/survey">My Survey</button>
     </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
+                Profile Updated!
+            </div>
+            <div class="alert alert-success" role="alert" *ngIf="emailSent">
+                Reset Email Sent!
+            </div>
+            <div class="card">
+                <h2 class="card-header">Profile</h2>
+                <div class="card-body">
 
-    <div class="col-md-3">
-      <div class="card">
-        <h2 class="card-header">Account Management</h2>
-        <div class="card-body">
-          <div class="d-grid gap-2">
-            <button class="btn btn-secondary" type="button" (click)="reset()">Reset Password</button>
-            <button class="btn btn-info" type="button" routerLink="/contact">Contact Us</button>
-          </div>
-          <br>
-          <hr>
-          <div class="d-grid gap-2">
-            <button class="btn btn-danger" type="button" data-bs-toggle="modal"
-              data-bs-target="#deleteAccountModal">Delete Account</button>
-          </div>
+                    <form [formGroup]="form" (ngSubmit)="updateAccount()">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name: </label>
+                            <input type="text" class="form-control" id="firstName" name="lastName" value="{{userData.firstName ?? ''}}" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name: </label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" value="{{userData.lastName ?? ''}}" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email: </label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{userData.email ?? ''}}" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username: </label>
+                            <input type="text" class="form-control" id="username" formControlName="username" value="{{userData.username ?? ''}}">
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-secondary">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <h2 class="card-header">Account Management</h2>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-secondary" type="button" (click)="reset()">Reset Password</button>
+                        <button class="btn btn-info" type="button" routerLink="/contact">Contact Us</button>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="deleteAccountModalLabel">Delete Account</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="lastName" class="form-label">To delete your account type <b>delete</b> in the text box
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="deleteAccountModalLabel">Delete Account</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">To delete your account, type your password in the text box
             below</label>
-          <input type="text" class="form-control" id="deleteAccountField" name="deleteAccountField"
-            [(ngModel)]="deleteAccountField">
+                    <input type="text" class="form-control" [(ngModel)]="user_password">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAccount()" [disabled]="user_password.length == 0">Confirm Deletion</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAccount()"
-          [attr.disabled]="deleteAccountField != 'delete' ? '' : null">Confirm Deletion</button>
-      </div>
     </div>
-  </div>
 </div>

@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   updateSuccess: Boolean;
   emailSent: Boolean;
 
-  deleteAccountField = '';
+  user_password = '';
 
   private userDoc: AngularFirestoreDocument<any>;
 
@@ -29,14 +29,13 @@ export class ProfileComponent implements OnInit {
     private afs: AngularFirestore, 
     public authService: AuthService, 
     private formBuilder: FormBuilder, 
-    private router: Router,
     ) { 
 
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
     })
     this.userData = authService.currentUserValue.data
-    this.userDoc = afs.doc<UserData>('users/' + authService.currentUserValue.uid);
+    this.userDoc = this.afs.doc<UserData>('users/' + authService.currentUserValue.uid);
     this.form.setValue({
       username: this.userData.username
     })
@@ -77,7 +76,7 @@ export class ProfileComponent implements OnInit {
   deleteAccount() {
     console.log('deleting account')
 
-    this.authService.deleteUserAccount();
+    this.authService.deleteUserAccount(this.user_password);
   }
 
   logout() {
