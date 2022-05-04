@@ -7,7 +7,7 @@
         <h1 class="name">{{fullName}}</h1>
         <h3 class="location">{{city}}, {{state}}</h3>
         <img [src]="campusImageUrl" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
-          *ngIf="campusImageUrl != ''">
+          style="border-radius: 0.5em;" *ngIf="campusImageUrl != ''">
         <br>
 
       </div>
