@@ -32,7 +32,7 @@ export class AuthService {
 
   public async signUp(firstName: string, lastName: string, email: string, password: string) {
     const result = await this.auth.createUserWithEmailAndPassword(email, password);
-    await this.sendVerificationMail();
+    // await this.sendVerificationMail();
     localStorage.removeItem('user');
     await this.createUserData(result.user, firstName, lastName);
   }
@@ -103,11 +103,6 @@ export class AuthService {
     }
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
-  }
-
-  private async sendVerificationMail() {
-    const newUser = await this.auth.currentUser;
-    await newUser.sendEmailVerification();
   }
 
   public get currentUserValue(): User {
