@@ -84,7 +84,7 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
 
-    const favDoc = this.firestore.doc<any>(`favorites/${this.currentUserValue.uid}`);
+    const favDoc = this.firestore.doc<any>(`favorites/${newUser.uid}`);
     await favDoc.set({ favoriteColleges: [] }, { merge: true });
 
     this.router.navigate(['survey']);

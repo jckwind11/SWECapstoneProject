@@ -21,8 +21,13 @@ export class FavoriteComponent implements OnInit {
   constructor(private favoriteService: FavoritesService, private searchService: SearchService) {
     this.loading = true;
     this.favoriteService.userFavorites.subscribe((result: UserFavorites) => {
-      this.favorites = result.favoriteColleges;
-      this.load();
+      if (result.favoriteColleges != null) {
+        this.favorites = result.favoriteColleges;
+        this.load();
+      }
+      else {
+        this.loading = false;
+      }
     }, 
     error => {
       console.log(error);
