@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
 
   private recommendations: RecommendationHandler;
   recommendationsError = '';
+  recommendationLabels: string[] = []
   recommendationsStrings: string[] = []
 
   loading = false;
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit {
     public favoriteService: FavoritesService,
     public firestore: AngularFirestore,
     private surveyQuestionHandler: SurveyQuestionHandler
-    ) {
+  ) {
 
   }
 
@@ -59,21 +60,48 @@ export class HomeComponent implements OnInit {
 
     // Load user survey data for recommendations
     const doc = this.firestore.doc<any>('surveys/' + this.authService.currentUserValue.uid);
-    doc.valueChanges().subscribe( data => {
+    doc.valueChanges().subscribe(data => {
       if (data != null) {
         const formData: SurveyForm = data;
         this.recommendations = this.surveyQuestionHandler.getRecommendationHandler(formData);
 
         // Recs Strings
-        if (this.recommendations.regionIdsString != null) this.recommendationsStrings.push(this.recommendations.regionIdsString);
-        if (this.recommendations.localeIdsString != null) this.recommendationsStrings.push(this.recommendations.localeIdsString);
-        if (this.recommendations.costRangeString != null) this.recommendationsStrings.push(this.recommendations.costRangeString);
-        if (this.recommendations.studentSizeString != null) this.recommendationsStrings.push(this.recommendations.studentSizeString);
-        if (this.recommendations.schoolTypeString != null) this.recommendationsStrings.push(this.recommendations.schoolTypeString);
-        if (this.recommendations.ownershipString != null) this.recommendationsStrings.push(this.recommendations.ownershipString);
-        if (this.recommendations.degreeIdsString != null) this.recommendationsStrings.push(this.recommendations.degreeIdsString);
-        if (this.recommendations.satScoreString != null) this.recommendationsStrings.push(this.recommendations.satScoreString);
-        if (this.recommendations.actScoreString != null) this.recommendationsStrings.push(this.recommendations.actScoreString);
+        if (this.recommendations.regionIdsString != null) {
+          this.recommendationLabels.push("Region: ");
+          this.recommendationsStrings.push(this.recommendations.regionIdsString);
+        }
+        if (this.recommendations.localeIdsString != null) {
+          this.recommendationLabels.push("Area Type: ");
+          this.recommendationsStrings.push(this.recommendations.localeIdsString);
+        }
+        if (this.recommendations.costRangeString != null) {
+          this.recommendationLabels.push("Cost: ");
+          this.recommendationsStrings.push(this.recommendations.costRangeString);
+        }
+        if (this.recommendations.studentSizeString != null) {
+          this.recommendationLabels.push("Student Population: ");
+          this.recommendationsStrings.push(this.recommendations.studentSizeString);
+        }
+        if (this.recommendations.schoolTypeString != null) {
+          this.recommendationLabels.push("School Type: ");
+          this.recommendationsStrings.push(this.recommendations.schoolTypeString);
+        }
+        if (this.recommendations.ownershipString != null) {
+          this.recommendationLabels.push("School Ownership: ");
+          this.recommendationsStrings.push(this.recommendations.ownershipString);
+        }
+        if (this.recommendations.degreeIdsString != null) { 
+          this.recommendationLabels.push("Degrees Offered: ");
+          this.recommendationsStrings.push(this.recommendations.degreeIdsString);
+        }
+        if (this.recommendations.satScoreString != null) { 
+          this.recommendationLabels.push("Average SAT Score: ");
+          this.recommendationsStrings.push(this.recommendations.satScoreString);
+        }
+        if (this.recommendations.actScoreString != null) {
+          this.recommendationLabels.push("Average ACT Score: ");
+          this.recommendationsStrings.push(this.recommendations.actScoreString);
+        }
 
         this.searchRecommended();
       }
@@ -123,14 +151,14 @@ export class HomeComponent implements OnInit {
 
   searchRecommended() {
     if (this.recommendations == null) {
-      this.schools = []; 
+      this.schools = [];
       this.numPages = 0;
       this.currentPage = 0;
       return
     }
 
     this.loading = true;
-    
+
     this.searchService.recommended(this.recommendations, this.currentPage, this.sort_by).subscribe(
       result => {
         this.numPages = Math.ceil(result.metadata.total / result.metadata.per_page);
