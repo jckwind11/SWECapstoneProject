@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   collegeAPIkey: "yAZ3JaZzDbjzTLPrdXmazvRcHrHqYDXbbdRFbvka",
+  collegeAIKey: "38b86f07b5abc3f64c98eb82b",
   firebase: {
     apiKey: "AIzaSyBrbR_HSeIvnMq9W23skXbL1RV7VuQYddY",
     authDomain: "college-finder-app-swe.firebaseapp.com",

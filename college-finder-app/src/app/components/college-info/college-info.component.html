@@ -8,11 +8,16 @@
         <h3 class="location">{{city}}, {{state}}</h3>
         <img [src]="campusImageUrl" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
           *ngIf="campusImageUrl != ''">
+        <br>
+
       </div>
-      <span class="example-spacer"></span>
+      <span class="example-spacer">
+      </span>
 
     </div>
-    <br><br>
+    <br>
+    <p>{{campusDescription}}</p>
+    <br>
     <div class="info-holder" [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}">
       <mat-card class="detail-card">
         <mat-card-title>General Info</mat-card-title>

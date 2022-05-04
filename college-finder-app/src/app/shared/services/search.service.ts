@@ -91,6 +91,21 @@ export class SearchService {
   }
 
 
+  getCampusImage(id: number) {
+    let altLink = `https://api.collegeai.com/v1/api/college/info?`;
+    const params = {
+      "api_key": environment.collegeAIKey,
+      "college_unit_ids": id,
+      "info_ids": "campus_image,long_description,short_description"
+    };
+    const keys = []
+    for (const key in params) {
+      keys.push(encodeURIComponent(key) + "=" + params[key]);
+    }
+    altLink += keys.join('&');
+    return this.http.get<any>(altLink);
+  }
+
   linkFactory(queryParams: any, inDepth: boolean = false) {
     var link = `https://api.data.gov/ed/collegescorecard/v1/schools?`;
     queryParams.fields = inDepth ? SearchService.inDepthFields :  SearchService.fields;

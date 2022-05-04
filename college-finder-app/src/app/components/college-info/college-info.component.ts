@@ -8,6 +8,7 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
 import { bottom, right, start, top } from '@popperjs/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-college-info',
@@ -20,7 +21,6 @@ export class CollegeInfoComponent implements OnInit {
 
   private school: SchoolSearchResults;
 
-  campusImageUrl: '';
 
   // meta info
   fullName: string = '';
@@ -34,11 +34,13 @@ export class CollegeInfoComponent implements OnInit {
   accreditor = "";
   admissions_rate: any = "No Data";
   retention_rate: any = "No Data";
+  campusDescription = "";
 
   // urls
   website = "";
   cost_calculator = "";
   img_url = "";
+  campusImageUrl: '';
 
   // cost & aid
   // price = "";
@@ -129,13 +131,35 @@ export class CollegeInfoComponent implements OnInit {
       this.cost_calculator = 'https://' + this.cost_calculator;
     }
 
-    const college_id: string = this.fullName.toLowerCase().split(' ').join('-');
-    console.log(college_id);
-    this.http.get<any>(`https://api.collegeai.com/v1/api/college/info?api_key=38b86f07b5abc3f64c98eb82b&college_ids=${college_id}&info_ids=campus_image,logo_image`).subscribe(data => {
-      if (data["colleges"][0]["campusImage"] != null) this.campusImageUrl = data["colleges"][0]["campusImage"];
-      if (data["colleges"][0]["logoImage"] != null) this.img_url = data["colleges"][0]["logoImage"];
+    // College campus image and description if they are avail
+    this.searchService.getCampusImage(this.school.id).subscribe(data => {
+      if (data["colleges"][0]["campusImage"] != null) {
+        this.campusImageUrl = data["colleges"][0]["campusImage"];
+      }
+      if (data["colleges"][0]["longDescription"] != null) {
+        let des = data["colleges"][0]["longDescription"].replace('&amp;', '&');
+        if (des.split('/').length > 1) {
+          const one = des.indexOf('/');
+          const two = des.slice(one + 1, des.length).indexOf('/');
+          this.campusDescription = des.slice(0, one) + des.slice(one + two + 2, des.length);
+        }
+        else {
+          this.campusDescription = des;
+        }
+      }
+      else if (data["colleges"][0]["shortDescription"] != null) {
+        let des = data["colleges"][0]["shortDescription"].replace('&amp;', '&');
+        if (des.split('/').length > 1) {
+          const one = des.indexOf('/');
+          const two = des.slice(one + 1, des.length).indexOf('/');
+          this.campusDescription = des.slice(0, one) + des.slice(one + two + 2, des.length);
+        }
+        else {
+          this.campusDescription = des;
+        }
+      }
     })
-    if (this.img_url == "") this.img_url = "https://logo.clearbit.com/" + this.website;
+    this.img_url = "https://logo.clearbit.com/" + this.website;
   
     switch (this.school['latest.school.ownership']) {
       case 1:
