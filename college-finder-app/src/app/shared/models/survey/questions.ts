@@ -74,7 +74,7 @@ export class SurveyQuestionHandler {
     public getRecommendationHandler(surveyData: SurveyForm): RecommendationHandler {
         // RegionIds
         let regionIds: number[] = [];
-        let regionIdsString: string = 'In the regions of: ';
+        let regionIdsString: string = '';
         if (surveyData.question1_0) {regionIds.push(1); regionIdsString += 'New England | ';}
         if (surveyData.question1_1) {regionIds.push(2); regionIdsString += 'Mid East | ';}
         if (surveyData.question1_2) {regionIds.push(3); regionIdsString += 'Great Lakes | ';}
@@ -89,7 +89,7 @@ export class SurveyQuestionHandler {
 
         // LocaleIds
         let localeIds: number[] = [];
-        let localeIdsString: string = 'In localities of: ';
+        let localeIdsString: string = '';
         if (surveyData.question2_0) {localeIds = [...localeIds, 11, 12, 13]; localeIdsString += 'City | ';}
         if (surveyData.question2_1) {localeIds = [...localeIds, 21, 22, 23]; localeIdsString += 'Suburb | ';}
         if (surveyData.question2_2) {localeIds = [...localeIds, 31, 32, 33]; localeIdsString += 'Town | ';}
@@ -99,7 +99,7 @@ export class SurveyQuestionHandler {
         
         // Cost Range
         const costRange = `..${surveyData.question7}`;
-        const costRangeString = `Costing less than $${surveyData.question7.toLocaleString("en-US")} per year`
+        const costRangeString = `less than $${surveyData.question7.toLocaleString("en-US")} per year`
 
         // Student Size Range
         let min = 0;
@@ -110,30 +110,30 @@ export class SurveyQuestionHandler {
         }
         else if (surveyData.question3_0 && surveyData.question3_1) {
             max = 15000;
-            studentSizeString = "Student population of less than 15,000";
+            studentSizeString = "less than 15,000";
         }
         else if (surveyData.question3_1 && surveyData.question3_2) {
             min = 5000;
-            studentSizeString = "Student population of more than 5,000";
+            studentSizeString = "more than 5,000";
         }
         else if (surveyData.question3_0 && surveyData.question3_2) {
             // Going to need to filter after query
             min = null;
             max = null;
-            studentSizeString = "Student population of less than 5,000 or student population of more than 15,000";
+            studentSizeString = "less than 5,000 or more than 15,000";
         }
         else if (surveyData.question3_0) {
             max = 5000;
-            studentSizeString = "Student population of less than 5,000";
+            studentSizeString = "less than 5,000";
         }
         else if (surveyData.question3_1) {
             min = 5000;
             max = 15000;
-            studentSizeString = "Student population of more than 5,000 but less than 15,000";
+            studentSizeString = "more than 5,000 but less than 15,000";
         }
         else {
             min = 15000;
-            studentSizeString = "Student population of more than 15,000";
+            studentSizeString = "more than 15,000";
         }
 
         let sizeRange: string = '';
@@ -165,9 +165,9 @@ export class SurveyQuestionHandler {
         // Ownership Ids
         let ownerShipIds: number[] = [];
         let ownershipString = null;
-        if (surveyData.question11 == '3') {ownerShipIds = [...ownerShipIds, 1, 2, 3]; ownershipString = "Public and private colleges";}
-        else if (surveyData.question11 == '2') {ownerShipIds = [...ownerShipIds, 2, 3]; ownershipString = "Only private colleges";}
-        else if (surveyData.question11 == '1') {ownerShipIds = [...ownerShipIds, 1]; ownershipString = "Only public colleges";}
+        if (surveyData.question11 == '3') {ownerShipIds = [...ownerShipIds, 1, 2, 3]; ownershipString = "Public and Private colleges";}
+        else if (surveyData.question11 == '2') {ownerShipIds = [...ownerShipIds, 2, 3]; ownershipString = "Private colleges";}
+        else if (surveyData.question11 == '1') {ownerShipIds = [...ownerShipIds, 1]; ownershipString = "Public colleges";}
 
         // Degree Ids
         let degreeIds: number[] = [];
@@ -184,11 +184,11 @@ export class SurveyQuestionHandler {
         let actScoreString = null;
         if (surveyData.question4 != null && surveyData.question4 != '') {
             sat = `..${surveyData.question4 + 150}`;
-            satScoreString = `Average SAT score of less than ${surveyData.question4 + 150}`;
+            satScoreString = `less than ${surveyData.question4 + 150}`;
         }
         if (surveyData.question5 != null && surveyData.question5 != '') {
             act = `..${surveyData.question5 + 4}`;
-            actScoreString = `Average ACT score of less than ${surveyData.question5 + 4}`;
+            actScoreString = `less than ${surveyData.question5 + 4}`;
         } 
 
         const recs: RecommendationHandler = {

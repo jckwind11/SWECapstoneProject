@@ -1,62 +1,78 @@
 .holder {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-gap: 20px;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-gap: 20px;
 }
 
 .school-holder {
-  margin: 0 10px;
+    margin: 0 10px;
 }
 
 .settings-card {
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  vertical-align: middle;
-  margin: 20px 0 auto auto;
-  margin-left: 10px;
-  text-align: center;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    vertical-align: middle;
+    margin: 20px 0 auto auto;
+    margin-left: 10px;
+    text-align: center;
 }
 
 .settings-card>* {
-  margin: 5px auto;
+    margin: 5px auto;
 }
 
 .Search-Button {
-  background-color: #2b6777;
-  color: white;
-  font-size: 15px;
-  border-radius: 5px;
-  height: 50px;
-  cursor: pointer;
-  margin-left: 20px !important;
-  margin-right: 20px !important;
+    background-color: #2b6777;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    height: 50px;
+    cursor: pointer;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
 }
 
 .student-body-size-area {
-  text-align: center;
-  width: 200px;
+    text-align: center;
+    width: 200px;
 }
 
 .mode {
-  width: 100%
+    width: 100%
 }
 
 .label {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .slider {
-  width: 100%;
-  padding: 0;
+    width: 100%;
+    padding: 0;
 }
 
 .card-item {
-  /* margin: 0px; */
-  margin: 5px;
+    /* margin: 0px; */
+    margin: 5px;
 }
 
 .progress-bar {
-  color: chocolate;
+    color: chocolate;
+}
+
+p.reccLabel {
+    text-align: left;
+    font-weight: bold;
+    /* float: left */
+}
+
+p.filter {
+    text-align: left;
+    /* float: left; */
+}
+
+.filter-holder {
+    text-align: left;
+    vertical-align: middle;
 }
