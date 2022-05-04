@@ -102,8 +102,15 @@
                   </div>
 
                   <!-- Number -->
-                  <div *ngIf="question.questionType === QuestionType.Number">
+                  <div *ngIf="question.questionType === QuestionType.Number && i != 6">
                     <div class="col-md-12">
+                      <input class="form-control" type="number" name="question{{i+1}}"
+                        formControlName="question{{i+1}}">
+                    </div>
+                  </div>
+                  <div *ngIf="question.questionType === QuestionType.Number && i == 6">
+                    <div class="col-md-12 input-group">
+                      <span class="input-group-text">$</span>
                       <input class="form-control" type="number" name="question{{i+1}}"
                         formControlName="question{{i+1}}">
                     </div>
