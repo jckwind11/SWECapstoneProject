@@ -85,7 +85,7 @@ export class AuthService {
     this.currentUserSubject.next(user);
 
     const favDoc = this.firestore.doc<any>(`favorites/${this.currentUserValue.uid}`);
-    favDoc.set({ favoriteColleges: [] }, { merge: true });
+    await favDoc.set({ favoriteColleges: [] }, { merge: true });
 
     this.router.navigate(['survey']);
   }
